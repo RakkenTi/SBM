@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "solid-js": "^1.9.10"
+    "@tailwindcss/vite": "^4.2.1",
+    "solid-js": "^1.9.10",
+    "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
     "vite": "^7.3.1",
