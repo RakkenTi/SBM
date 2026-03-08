@@ -148,7 +148,7 @@ function Portal() {
                     <div class="h-1.5 w-1/12 bg-cyan-500 mx-auto mt-6 rounded-full"></div>
                 </div>
 
-                <section class="pt-5 flex gap-20 justify-center">
+                <section class="pt-5 flex flex-col lg:flex-row gap-20 justify-center">
                             {/*Left Side*/}
                             <section class="pt-10 w-1/4 justify-center grid grid-cols-2 gap-8">
 
@@ -166,7 +166,7 @@ function Portal() {
                             </section>
 
                             {/*Right Side*/}
-                            <section class="shadow-xl w-1/2 min-h-min items-center justify-center bg-white rounded-3xl">
+                            <section class="shadow-xl w-1/3 h-175 overflow-y-auto overflow-hidden items-center justify-center bg-white rounded-3xl">
                                 <For each={actions}>
                                     {(item) => (
                                         <Show when={action() === item.id}>
