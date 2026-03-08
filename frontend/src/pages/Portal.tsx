@@ -1,11 +1,14 @@
 import { createSignal, createMemo, For, Show } from "solid-js";
+import { MAX_PROJECT_DESCRIPTION_CHARS, MAX_PROJECT_NAME_CHARS } from "../modules/product_config";
+import ConfirmModal from "../components/confirm_modal";
+import LoadingModal from "../components/loading_modal";
 
 const [newProductData, setNewProductData] = createSignal({
     name: "",
     description: ""
 })
 
-const MAX_DESCRIPTION_CHARS = 100;
+const [displayedModal, setDisplayModal] = createSignal<"NONE" | "CONFIRM" | "LOADING">("NONE")
 
 const [products, setProducts] = createSignal([
     { name: "Sample Product", description: "Sample product description" },
@@ -16,11 +19,15 @@ const [products, setProducts] = createSignal([
 const getCreateButtonColour = createMemo(() => {
     const data = newProductData()
     if (data.description.trim().length <= 0 || data.name.trim().length <= 0) {
-        return `bg-gray-400 hover:bg-gray-500`
+        return `bg-gray-400`
     } else {
         return `bg-green-400 hover:bg-green-500`
     }
 })
+
+const promptConfirmCreateNewProduct = () => {
+    setDisplayModal("CONFIRM")
+}
 
 const createContent = (
     <div class="flex flex-col gap-8 p-10">
@@ -31,6 +38,8 @@ const createContent = (
                 <label class="text-xs font-bold uppercase tracking-widest text-gray-400 pl-1">Product Name</label>
                 <input 
                     type="text" 
+                    value = {newProductData().name}
+                    maxLength={MAX_PROJECT_NAME_CHARS}
                     placeholder="e.g. Task-list Manager" 
                     class="w-full bg-gray-100 border-4 border-gray-200 p-4 rounded-xl text-xl outline-none focus:border-cyan-400 transition-colors"
                     onInput={(e) => setNewProductData(() => {
@@ -46,7 +55,8 @@ const createContent = (
             <div class="flex flex-col gap-2">
                 <label class="text-xs font-bold uppercase tracking-widest text-gray-400 pl-1">Description</label>
                 <textarea 
-                    maxLength={MAX_DESCRIPTION_CHARS}
+                    value = {newProductData().description}
+                    maxLength={MAX_PROJECT_DESCRIPTION_CHARS}
                     placeholder="A simple task manager inspired like trello!" 
                     rows="8"
                     class="w-full bg-gray-100 border-4 border-gray-200 p-4 rounded-xl text-lg outline-none focus:border-cyan-400 transition-colors resize-none"
@@ -60,7 +70,7 @@ const createContent = (
                 />
             </div>
 
-            <button class={`border-4 hover:cursor-pointer border-gray-100 p-4 rounded-xl w-full text-xl ${getCreateButtonColour()}`}>
+            <button onclick={promptConfirmCreateNewProduct} class={`border-4 hover:cursor-pointer border-gray-100 p-4 rounded-xl w-full text-xl ${getCreateButtonColour()}`}>
                 Create
             </button>
         </div>
@@ -87,6 +97,13 @@ const actions = [
     { id: "Create", label: "Create Product", content: createContent},
     { id: "ViewProducts", label: "View Products", content: viewProductsContent},
 ]
+const RejectCreateProduct = () => {
+    setDisplayModal("NONE")
+}
+
+const AcceptCreateProduct = () => {
+    setDisplayModal("LOADING")
+}
 
 function Portal() {
 
@@ -94,6 +111,29 @@ function Portal() {
 
     return (
         <div class="min-h-screen bg-slate-100">
+            
+            <div class={
+                `flex justify-center items-center w-full z-10 fixed inset-0 transition-all duration-300 bg-black/40 backdrop-blur-xs ${
+                    displayedModal() === "NONE" ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
+                }` 
+            }>
+                <div class={
+                    `
+                    absolute transition-all duration-300 ${
+                            displayedModal() === "CONFIRM" ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                        }
+                    `}>
+                    <ConfirmModal title="Create Product" acceptCallback={AcceptCreateProduct} rejectCallback={RejectCreateProduct}/>
+                </div>
+                <div class={
+                    `absolute transition-all duration-300 ${
+                            displayedModal() === "LOADING" ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                        }
+                    `}>
+                    <LoadingModal label="Creating Product"/>
+                </div>
+            </div>
+
             <header class="fixed w-full inset-x-0 top-0 p-8 h-24 pl-12 pr-12 bg-cyan-500 shadow-xl flex justify-between">
                 <h1 class="text-3xl text-white font-bold italic tracking-tight ">SBM Portal</h1>
                 <div class="flex items-center gap-4">
@@ -108,7 +148,7 @@ function Portal() {
                     <div class="h-1.5 w-1/12 bg-cyan-500 mx-auto mt-6 rounded-full"></div>
                 </div>
 
-                <section class="pt-5 flex gap-20 justify-center">
+                <section class="pt-10 flex gap-20 justify-center">
                             {/*Left Side*/}
                             <section class="pt-10 w-1/4 justify-center grid grid-cols-2 gap-8">
 
@@ -116,7 +156,8 @@ function Portal() {
                                     {(item) => (
                                         <button class={`hover:shadow-md active:scale-95 hover:-translate-y-1 shadow-sm transition-all md:aspect-video lg:aspect-square aspect-square rounded-4xl border-4 hover:border-cyan-400 grounded-xl 
                                         ${action() === item.id ? "bg-cyan-100 border-cyan-400" : "border-gray-200 bg-white"}`} 
-                                        onClick={() => setAction(item.id)}>
+                                        onClick={() => setAction(item.id)}
+                                        >
                                             <span class="text-xl font-bold uppercase">{item.label}</span>
                                         </button>
                                     )}
