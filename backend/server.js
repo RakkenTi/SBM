@@ -4,25 +4,26 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB connected");
-    console.log("Database name:", mongoose.connection.name);
-  })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
-  });
+(async () => {
+	try {
+    console.log("Attempting to connect to DB...")
+		await mongoose.connect(process.env.MONGO_URI);
+		console.log("Connected to DB");
+	} catch (error) {
+		console.log("DB Connection failed: ", error.message);
+	}
+})()
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.send("Backend working");
 });
 
-app.get("/db-status", (req, res) => {
+app.get("/db-status", (_, res) => {
   if (mongoose.connection.readyState === 1) {
     res.send("Database working");
   } else {
