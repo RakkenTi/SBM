@@ -1,53 +1,34 @@
-import { createSignal } from "solid-js";
+import { createSignal, onMount } from "solid-js";
 
 function App() {
-  const [name, setName] = createSignal("");
-  const [value, setValue] = createSignal("");
+  const [backendMessage, setBackendMessage] = createSignal("Loading backend...");
+  const [dbMessage, setDbMessage] = createSignal("Loading database...");
 
-  const saveItem = async () => {
-    const response = await fetch("http://localhost:5000/items", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name(),
-        value: Number(value()),
-      }),
-    });
+  onMount(async () => {
+    try {
+      const backendRes = await fetch("http://localhost:5000/");
+      const backendText = await backendRes.text();
+      setBackendMessage(backendText);
+    } catch {
+      setBackendMessage("Backend not reachable");
+    }
 
-    const data = await response.json();
-    console.log(data);
-    alert("Item saved");
-  };
+    try {
+      const dbRes = await fetch("http://localhost:5000/db-status");
+      const dbText = await dbRes.text();
+      setDbMessage(dbText);
+    } catch {
+      setDbMessage("Database not reachable");
+    }
+  });
 
   return (
     <div class="min-h-screen bg-zinc-900 text-white flex items-center justify-center">
-      <div class="bg-zinc-800 p-8 rounded-2xl w-full max-w-md space-y-4">
-        <h1 class="text-3xl font-bold">Save an Item</h1>
-
-        <input
-          class="w-full p-3 rounded-lg text-black"
-          type="text"
-          placeholder="Item name"
-          value={name()}
-          onInput={(e) => setName(e.target.value)}
-        />
-
-        <input
-          class="w-full p-3 rounded-lg text-black"
-          type="number"
-          placeholder="Item value"
-          value={value()}
-          onInput={(e) => setValue(e.target.value)}
-        />
-
-        <button
-          class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg font-semibold"
-          onClick={saveItem}
-        >
-          Save to MongoDB
-        </button>
+      <div class="bg-zinc-800 p-8 rounded-2xl w-full max-w-lg space-y-4 shadow-lg">
+        <h1 class="text-3xl font-bold">Baseplate Working</h1>
+        <p class="text-lg">Frontend working</p>
+        <p class="text-lg">{backendMessage()}</p>
+        <p class="text-lg">{dbMessage()}</p>
       </div>
     </div>
   );
