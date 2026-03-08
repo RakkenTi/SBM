@@ -70,7 +70,7 @@ const createContent = (
                 />
             </div>
 
-            <button onclick={promptConfirmCreateNewProduct} class={`border-4 hover:cursor-pointer border-gray-100 p-4 rounded-xl w-full text-xl ${getCreateButtonColour()}`}>
+            <button onclick={promptConfirmCreateNewProduct} class={`font-bold border-4 hover:cursor-pointer border-gray-100 p-4 rounded-xl w-full text-xl ${getCreateButtonColour()}`}>
                 Create
             </button>
         </div>
@@ -142,13 +142,13 @@ function Portal() {
                 </div>
             </header>
 
-            <main class="text-gray-700">
+            <main class="text-gray-700 flex flex-col justify-center min-h-screen transition-all duration-300">
                 <div class="text-gray-700 pt-20 my-4">
-                    <h1 class="pt-10 text-6xl text-center font-bold tracking-tight">What would you like to do?</h1>
+                    <h1 class="text-6xl text-center font-bold tracking-tight">What would you like to do?</h1>
                     <div class="h-1.5 w-1/12 bg-cyan-500 mx-auto mt-6 rounded-full"></div>
                 </div>
 
-                <section class="pt-10 flex gap-20 justify-center">
+                <section class="pt-5 flex gap-20 justify-center">
                             {/*Left Side*/}
                             <section class="pt-10 w-1/4 justify-center grid grid-cols-2 gap-8">
 
