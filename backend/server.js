@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const createProductRouter = require("./routes/create_product")
 require("dotenv").config();
 require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
 
@@ -31,6 +32,8 @@ app.get("/db-status", (_, res) => {
     res.status(500).send("Database not connected");
   }
 });
+
+app.use("/api", createProductRouter)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
