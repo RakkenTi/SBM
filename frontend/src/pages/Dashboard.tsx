@@ -104,11 +104,11 @@ const Dashboard = () => (
 
         <SubHeader label="Stats" />
         <Line class="bg-orange-400" />
-        <div class="pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 p-4">
+        <div class="pt-10 flex flex-wrap w-full justify-center gap-8 p-20 md:p-100">
             <For each={StatCards}>
                 {(item, i) => (
                     <div
-                        class="animate-slide-up opacity-0"
+                        class="animate-slide-up opacity-0 w-1/2 md:w-1/3 "
                         style={{
                             'animation-delay': `${i() * 100}ms`,
                         }}
