@@ -156,7 +156,7 @@ function Portal() {
                 </div>
             </div>
 
-            <header class="sticky w-full inset-x-0 top-0 p-8 pl-12 pr-12 bg-cyan-500 shadow-xl flex justify-between">
+            <header class="fixed w-full inset-x-0 top-0 p-8 pl-12 pr-12 bg-cyan-500 shadow-xl flex justify-between">
                 <h1 class="text-3xl text-white font-bold italic tracking-tight ">SBM Portal</h1>
                 <div class="flex items-center gap-4">
                     <ProfilePicture/>
@@ -164,7 +164,7 @@ function Portal() {
                 </div>
             </header>
 
-            <main class="text-gray-700 flex flex-col justify-center min-h-screen transition-all duration-300">
+            <main class="pt-25 text-gray-700 flex flex-col justify-center min-h-screen transition-all duration-300">
                 <div class="text-gray-700 my-4">
                     <h1 class="text-6xl text-center font-bold tracking-tight">What would you like to do?</h1>
                     <div class="h-1.5 w-1/12 bg-cyan-500 mx-auto mt-6 rounded-full"></div>

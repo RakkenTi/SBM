@@ -32,7 +32,7 @@ function Dashboard() {
             </header>
 
             {/* Dashboard */}
-            <main class="pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 p-4">
+            <main class="pt-20 grid grid-cols-1 md:grid-cols-3 gap-8 p-4">
                 <StatCard header="Welcome" value="John" value_classes="text-slate-600"/>
                 <StatCard header="Product Owner" value="Bob" />
                 <StatCard header="Sprints Completed" value="5" value_classes="text-green-500"/>
