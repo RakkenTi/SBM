@@ -46,13 +46,15 @@ function Dashboard() {
     return (
         <div class="min-h-screen bg-slate-100 flex flex-col">
             <header class="z-10 sticky w-full inset-x-0 top-0 bg-cyan-500 shadow-xl flex flex-col">
-                <div class="flex justify-between p-8 pl-12 pr-12">
+                <div class="flex w-full justify-center md:justify-between p-8 pl-12 pr-12">
                     <h1 class="text-3xl text-white font-bold tracking-tight">
                         Product Name
                     </h1>
-                    <ProfilePicture />
+                    <div class="hidden md:block">
+                        <ProfilePicture />
+                    </div>
                 </div>
-                <nav class="w-full bg-cyan-200 p-8 shadow-xl gap-16 flex justify-center">
+                <nav class="w-full bg-cyan-200 p-8 shadow-xl gap-4 text-center md:gap-16 flex justify-center">
                     <For each={navbar_buttons}>
                         {(item) => (
                             <NavButton
@@ -72,22 +74,19 @@ function Dashboard() {
             {/* Dashboard */}
             <main class="min-h-screen flex flex-col z-0">
                 <SubHeader label="Welcome, User" />
-                <div class="pt-10 text-center justify-center flex gap-8 p-4 w-full">
+                <Line />
+                <div class="pt-10 text-center justify-center flex flex-col md:flex-row gap-4 md:gap-8 p-4 w-full">
                     <StatCard
                         header="Level"
                         value="Product Owner"
                         value_classes="text-slate-600"
-                        class="w-1/4"
                     />
-                    <StatCard
-                        header="Assigned Sprint"
-                        value="THE Sprint."
-                        class="w-1/4"
-                    />
+                    <StatCard header="Assigned Sprint" value="THE Sprint." />
                 </div>
 
                 <SubHeader label="Burndown Analytics" />
-                <div class="p-4 flex justify-center gap-12">
+                <Line />
+                <div class="p-4 flex flex-col md:flex-row justify-center gap-12">
                     <BurndownChart
                         type="line"
                         data={[
