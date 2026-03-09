@@ -3,8 +3,8 @@ import { Component } from "solid-js";
 interface ConfirmModalProps {
     title: string,
     label?: string,
-    rejectCallback: Function,
-    acceptCallback: Function,
+    rejectCallback: () => any,
+    acceptCallback: () => any,
 }
 
 const ConfirmModal: Component<ConfirmModalProps> = (props) => {

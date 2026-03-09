@@ -3,6 +3,7 @@ import { MAX_PROJECT_DESCRIPTION_CHARS, MAX_PROJECT_NAME_CHARS } from "../module
 import ConfirmModal from "../components/confirm_modal";
 import LoadingModal from "../components/loading_modal";
 import { url } from "../modules/client_config";
+import ProfilePicture from "../components/profile_picture";
 
 const [newProductData, setNewProductData] = createSignal({
     name: "",
@@ -155,16 +156,16 @@ function Portal() {
                 </div>
             </div>
 
-            <header class="fixed w-full inset-x-0 top-0 p-8 h-24 pl-12 pr-12 bg-cyan-500 shadow-xl flex justify-between">
+            <header class="sticky w-full inset-x-0 top-0 p-8 pl-12 pr-12 bg-cyan-500 shadow-xl flex justify-between">
                 <h1 class="text-3xl text-white font-bold italic tracking-tight ">SBM Portal</h1>
                 <div class="flex items-center gap-4">
-                    <span class="w-10 h-10 bg-gray-400 rounded-full flex items-center justify-center text-white font-bold">U</span>
+                    <ProfilePicture/>
                     <h1 class="text-2xl text-white font-bold">Welcome, User.</h1>
                 </div>
             </header>
 
             <main class="text-gray-700 flex flex-col justify-center min-h-screen transition-all duration-300">
-                <div class="text-gray-700 pt-20 my-4">
+                <div class="text-gray-700 my-4">
                     <h1 class="text-6xl text-center font-bold tracking-tight">What would you like to do?</h1>
                     <div class="h-1.5 w-1/12 bg-cyan-500 mx-auto mt-6 rounded-full"></div>
                 </div>
