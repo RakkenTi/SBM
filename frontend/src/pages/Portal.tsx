@@ -106,7 +106,7 @@ const viewProductsContent = (
             <For each={products()}>
                 {(product) => (
                     <a
-                        href="/dashboard"
+                        href="/product"
                         class="hover:shadow-md active:scale-95 hover:-translate-y-1 shado-sm transition-all flex flex-col gap-4 p-4 md:p-6 bg-gray-50 w-full rounded-xl border-4 border-gray-100"
                     >
                         <h2 class="font-bold text-xl">{product.name}</h2>

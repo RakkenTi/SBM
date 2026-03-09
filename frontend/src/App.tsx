@@ -9,7 +9,7 @@ function App() {
         <div class="font-['Inter']">
             <Router>
                 <Route path="/" component={Portal} />
-                <Route path="/dashboard" component={Product}></Route>
+                <Route path="/product" component={Product}></Route>
             </Router>
         </div>
     )
