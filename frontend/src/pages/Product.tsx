@@ -72,90 +72,95 @@ function Product() {
             </header>
 
             {/* Dashboard */}
-            <main class="min-h-screen flex flex-col z-0">
-                <SubHeader label="Welcome, User" />
-                <Line />
-                <div class="pt-10 text-center justify-center flex flex-col md:flex-row gap-4 md:gap-8 p-4 w-full">
-                    <StatCard
-                        header="Level"
-                        value="Product Owner"
-                        value_classes="text-slate-600"
-                    />
-                    <StatCard header="Assigned Sprint" value="THE Sprint." />
-                </div>
+            <Show when={tab() === 'Dashboard'}>
+                <main class="min-h-screen flex flex-col z-0">
+                    <SubHeader label="Welcome, User" />
+                    <Line />
+                    <div class="pt-10 text-center justify-center flex flex-col md:flex-row gap-4 md:gap-8 p-4 w-full">
+                        <StatCard
+                            header="Level"
+                            value="Product Owner"
+                            value_classes="text-slate-600"
+                        />
+                        <StatCard
+                            header="Assigned Sprint"
+                            value="THE Sprint."
+                        />
+                    </div>
 
-                <SubHeader label="Burndown Analytics" />
-                <Line />
-                <div class="p-4 flex flex-col md:flex-row justify-center gap-12">
-                    <BurndownChart
-                        type="line"
-                        data={[
-                            {
-                                label: 'Sample Label',
-                                data: [12, 152, 161, 41, 42, 50],
-                                borderColor: '#06b6d4',
-                                tension: 0.4,
-                            },
-                            {
-                                label: 'Sample Label 2',
-                                data: [51, 42, 150, 122, 24, 80],
-                                borderColor: '#bb5cf6',
-                                tension: 0.4,
-                            },
-                        ]}
-                        labels={[
-                            'Label 1',
-                            'Label 2',
-                            'Label 3',
-                            'Label 4',
-                            'Label 5',
-                            'Label 6',
-                        ]}
-                    />
-                    <BurndownChart
-                        type="bar"
-                        data={[
-                            {
-                                label: 'Sample Label',
-                                data: [12, 152, 161, 41, 42, 50],
-                                borderColor: '#06b6d4',
-                                backgroundColor: '#06b6d4',
-                            },
-                            {
-                                label: 'Sample Label 2',
-                                data: [51, 42, 150, 122, 24, 80],
-                                borderColor: '#bb5cf6',
-                                backgroundColor: '#FF5C00',
-                            },
-                        ]}
-                        labels={[
-                            'Label 1',
-                            'Label 2',
-                            'Label 3',
-                            'Label 4',
-                            'Label 5',
-                            'Label 6',
-                        ]}
-                    />
-                </div>
+                    <SubHeader label="Burndown Analytics" />
+                    <Line />
+                    <div class="p-4 flex flex-col md:flex-row justify-center gap-12">
+                        <BurndownChart
+                            type="line"
+                            data={[
+                                {
+                                    label: 'Sample Label',
+                                    data: [12, 152, 161, 41, 42, 50],
+                                    borderColor: '#06b6d4',
+                                    tension: 0.4,
+                                },
+                                {
+                                    label: 'Sample Label 2',
+                                    data: [51, 42, 150, 122, 24, 80],
+                                    borderColor: '#bb5cf6',
+                                    tension: 0.4,
+                                },
+                            ]}
+                            labels={[
+                                'Label 1',
+                                'Label 2',
+                                'Label 3',
+                                'Label 4',
+                                'Label 5',
+                                'Label 6',
+                            ]}
+                        />
+                        <BurndownChart
+                            type="bar"
+                            data={[
+                                {
+                                    label: 'Sample Label',
+                                    data: [12, 152, 161, 41, 42, 50],
+                                    borderColor: '#06b6d4',
+                                    backgroundColor: '#06b6d4',
+                                },
+                                {
+                                    label: 'Sample Label 2',
+                                    data: [51, 42, 150, 122, 24, 80],
+                                    borderColor: '#bb5cf6',
+                                    backgroundColor: '#FF5C00',
+                                },
+                            ]}
+                            labels={[
+                                'Label 1',
+                                'Label 2',
+                                'Label 3',
+                                'Label 4',
+                                'Label 5',
+                                'Label 6',
+                            ]}
+                        />
+                    </div>
 
-                <SubHeader label="Stats" />
-                <Line class="bg-orange-400" />
-                <div class="pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 p-4">
-                    <For each={StatCards}>
-                        {(item, i) => (
-                            <div
-                                class="animate-slide-up opacity-0"
-                                style={{
-                                    'animation-delay': `${i() * 100}ms`,
-                                }}
-                            >
-                                {item}
-                            </div>
-                        )}
-                    </For>
-                </div>
-            </main>
+                    <SubHeader label="Stats" />
+                    <Line class="bg-orange-400" />
+                    <div class="pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 p-4">
+                        <For each={StatCards}>
+                            {(item, i) => (
+                                <div
+                                    class="animate-slide-up opacity-0"
+                                    style={{
+                                        'animation-delay': `${i() * 100}ms`,
+                                    }}
+                                >
+                                    {item}
+                                </div>
+                            )}
+                        </For>
+                    </div>
+                </main>
+            </Show>
         </div>
     )
 }
