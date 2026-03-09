@@ -54,7 +54,7 @@ function Dashboard() {
                         <ProfilePicture />
                     </div>
                 </div>
-                <nav class="w-full bg-cyan-200 p-8 shadow-xl gap-4 text-center md:gap-16 flex justify-center">
+                <nav class="w-full bg-cyan-200 p-2 md:p-8 shadow-xl gap-4 text-center md:gap-16 flex justify-center">
                     <For each={navbar_buttons}>
                         {(item) => (
                             <NavButton
