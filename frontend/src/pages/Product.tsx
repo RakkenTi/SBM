@@ -42,7 +42,7 @@ const StatCards = [
         value_classes="text-slate-500"
     />,
 ]
-function Dashboard() {
+function Product() {
     return (
         <div class="min-h-screen bg-slate-100 flex flex-col">
             <header class="z-10 sticky w-full inset-x-0 top-0 bg-cyan-500 shadow-xl flex flex-col">
@@ -160,4 +160,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+export default Product
