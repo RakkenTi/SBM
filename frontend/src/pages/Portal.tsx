@@ -42,7 +42,7 @@ const promptConfirmCreateNewProduct = () => {
 }
 
 const createContent = (
-    <div class="flex flex-col gap-8 p-10">
+    <div class="flex flex-col gap-4 p-4">
         <h2 class="text-center text-2xl font-bold">Create A New Product</h2>
         <div class="space-y-6">
             <div class="flex flex-col gap-2">
@@ -100,17 +100,17 @@ const createContent = (
 )
 
 const viewProductsContent = (
-    <div class="flex flex-col gap-8 p-4 md:p-10">
-        <h2 class="pt-10 text-center text-2xl font-bold">Product List</h2>
+    <div class="flex flex-col gap-4 p-2 md:p-4">
+        <h2 class="text-center text-2xl font-bold">Product List</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <For each={products()}>
                 {(product) => (
                     <a
                         href="/dashboard"
-                        class="hover:shadow-md active:scale-95 hover:-translate-y-1 shado-sm transition-all flex flex-col gap-4 p-4 md:p-10 bg-gray-50 w-full rounded-xl border-4 border-gray-100"
+                        class="hover:shadow-md active:scale-95 hover:-translate-y-1 shado-sm transition-all flex flex-col gap-4 p-4 md:p-6 bg-gray-50 w-full rounded-xl border-4 border-gray-100"
                     >
                         <h2 class="font-bold text-xl">{product.name}</h2>
-                        <h3 class="font-semibold text-gray-400 text-lg line-clamp-5">
+                        <h3 class="font-semibold text-gray-400 text-lg line-clamp-4">
                             {product.description}
                         </h3>
                     </a>
@@ -207,7 +207,7 @@ function Portal() {
                 </div>
             </header>
 
-            <main class="pt-50 text-gray-700 flex flex-col justify-center min-h-screen transition-all duration-300">
+            <main class="pt-50 md:pt-25 text-gray-700 flex flex-col justify-center min-h-screen transition-all duration-300">
                 <div class="text-gray-700 my-4">
                     <h1 class="p-8 md:p-0 text-4xl md:text-6xl text-center font-bold tracking-tight animate-fade-in">
                         What would you like to do?
@@ -240,7 +240,7 @@ function Portal() {
                     <section class="p-4 md:p-8 w-full md:w-1/3">
                         <div
                             style={{ 'animation-delay': '400ms' }}
-                            class="w-full p-4 flex animate-slide-up opacity-0 shadow-xl h-175 overflow-y-auto overflow-hidden items-center justify-center bg-white rounded-3xl"
+                            class="w-full p-4 flex animate-slide-up opacity-0 shadow-xl overflow-y-auto overflow-hidden items-center justify-center bg-white rounded-3xl"
                         >
                             <For each={actions}>
                                 {(item) => (
