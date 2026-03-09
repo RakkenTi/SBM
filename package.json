@@ -2,14 +2,22 @@
     "name": "sbm-portal-monorepo",
     "private": true,
     "devDependencies": {
+        "concurrently": "^9.2.1",
         "eslint": "^9.39.4",
         "prettier": "3.8.1"
     },
     "scripts": {
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+        "install:all": "npm install",
         "build:frontend": "cd frontend && npm run build",
-        "start:backend": "cd backend && npm run start"
-    }
+        "start:backend": "cd backend && npm run start",
+        "dev:frontend": "cd frontend && npm run dev",
+        "dev:backend": "cd backend && npm run serve",
+        "dev:full": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""
+    },
+    "workspaces": [
+        "frontend",
+        "backend"
+    ]
 }
