@@ -100,14 +100,14 @@ const createContent = (
 )
 
 const viewProductsContent = (
-    <div class="flex flex-col gap-8 p-10">
-        <h2 class="text-center text-2xl font-bold">Product List</h2>
-        <div class="grid grid-cols-2 gap-8">
+    <div class="flex flex-col gap-8 p-4 md:p-10">
+        <h2 class="pt-10 text-center text-2xl font-bold">Product List</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <For each={products()}>
                 {(product) => (
                     <a
                         href="/dashboard"
-                        class="hover:shadow-md active:scale-95 hover:-translate-y-1 shado-sm transition-all flex flex-col gap-4 p-10 bg-gray-50 w-full rounded-xl border-4 border-gray-100"
+                        class="hover:shadow-md active:scale-95 hover:-translate-y-1 shado-sm transition-all flex flex-col gap-4 p-4 md:p-10 bg-gray-50 w-full rounded-xl border-4 border-gray-100"
                     >
                         <h2 class="font-bold text-xl">{product.name}</h2>
                         <h3 class="font-semibold text-gray-400 text-lg line-clamp-5">
@@ -195,11 +195,11 @@ function Portal() {
                 </div>
             </div>
 
-            <header class="fixed w-full inset-x-0 top-0 p-8 pl-12 pr-12 bg-cyan-500 shadow-xl flex justify-between">
-                <h1 class="text-3xl text-white font-bold italic tracking-tight ">
+            <header class="fixed w-full text-center inset-x-0 z-10 top-0 p-8 pl-12 pr-12 bg-cyan-500 shadow-xl md:flex md:justify-between">
+                <h1 class="text-3xl text-white font-bold md:italic tracking-tight ">
                     SBM Portal
                 </h1>
-                <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center gap-4">
                     <ProfilePicture />
                     <h1 class="text-2xl text-white font-bold">
                         Welcome, User.
@@ -207,28 +207,28 @@ function Portal() {
                 </div>
             </header>
 
-            <main class="pt-25 text-gray-700 flex flex-col justify-center min-h-screen transition-all duration-300">
+            <main class="pt-50 text-gray-700 flex flex-col justify-center min-h-screen transition-all duration-300">
                 <div class="text-gray-700 my-4">
-                    <h1 class="text-6xl text-center font-bold tracking-tight animate-fade-in">
+                    <h1 class="p-8 md:p-0 text-4xl md:text-6xl text-center font-bold tracking-tight animate-fade-in">
                         What would you like to do?
                     </h1>
                     <Line />
                 </div>
 
                 <section class="pt-5 flex flex-col lg:flex-row gap-20 justify-center">
-                    {/*Left Side*/}
-                    <section class="pt-10 w-1/4 justify-center grid grid-cols-2 gap-8">
+                    {/*Left Side / Above*/}
+                    <section class="pt-10 p-8 justify-center grid grid-cols-2 md:grid-cols-2 gap-8">
                         <For each={actions}>
                             {(item, i) => (
                                 <button
                                     style={{
                                         'animation-delay': `${i() * 100 + 200}ms`,
                                     }}
-                                    class={`animate-slide-up opacity-0 hover:shadow-md active:scale-95 hover:-translate-y-1 shadow-sm transition-all md:aspect-video lg:aspect-square aspect-square rounded-4xl border-4 hover:border-cyan-400 grounded-xl 
+                                    class={`p-4 md:p-8 animate-slide-up opacity-0 hover:shadow-md active:scale-95 hover:-translate-y-1 shadow-sm transition-all md:aspect-square rounded-4xl border-4 hover:border-cyan-400 grounded-xl 
                                         ${action() === item.id ? 'bg-cyan-100 border-cyan-400' : 'border-gray-200 bg-white'}`}
                                     onClick={() => setAction(item.id)}
                                 >
-                                    <span class="text-xl font-bold uppercase">
+                                    <span class="text-center text-sm md:text-xl font-bold uppercase">
                                         {item.label}
                                     </span>
                                 </button>
@@ -236,18 +236,20 @@ function Portal() {
                         </For>
                     </section>
 
-                    {/*Right Side*/}
-                    <section
-                        style={{ 'animation-delay': '400ms' }}
-                        class="animate-slide-up opacity-0 shadow-xl w-1/3 h-175 overflow-y-auto overflow-hidden items-center justify-center bg-white rounded-3xl"
-                    >
-                        <For each={actions}>
-                            {(item) => (
-                                <Show when={action() === item.id}>
-                                    <div class="p-4">{item.content}</div>
-                                </Show>
-                            )}
-                        </For>
+                    {/*Right Side / Below*/}
+                    <section class="p-4 md:p-8 w-full md:w-1/3">
+                        <div
+                            style={{ 'animation-delay': '400ms' }}
+                            class="w-full p-4 flex animate-slide-up opacity-0 shadow-xl h-175 overflow-y-auto overflow-hidden items-center justify-center bg-white rounded-3xl"
+                        >
+                            <For each={actions}>
+                                {(item) => (
+                                    <Show when={action() === item.id}>
+                                        <div class="p-4">{item.content}</div>
+                                    </Show>
+                                )}
+                            </For>
+                        </div>
                     </section>
                 </section>
             </main>
