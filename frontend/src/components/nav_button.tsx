@@ -13,7 +13,7 @@ const NavButton: Component<NavButtonProps> = (props) => {
             onClick={props.callback}
             class="group transition-all duration-300 active:scale-95 hover:cursor-pointer hover:-translate-y-0.5 flex flex-col"
         >
-            <div class="font-bold text-lg text-gray-700 rounded-xl">
+            <div class="font-bold md:text-lg text-gray-700 rounded-xl">
                 {props.label}
             </div>
             <div class="flex w-full justify-center">
