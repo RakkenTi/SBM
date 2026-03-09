@@ -1,8 +1,6 @@
 import { createSignal, onMount } from "solid-js";
+import { url } from "./modules/client_config";
 import Portal from './pages/Portal.js'
-
-const localURL = "http://localhost:5000"
-const url = import.meta.env.VITE_EXPRESS_URL || localURL;
 
 function App() {
   const [backendMessage, setBackendMessage] = createSignal("Loading backend...");

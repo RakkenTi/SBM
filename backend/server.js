@@ -1,36 +1,42 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+
+const getServerStatus = require("./routes/get/server_status")
+const getDatabaseStatus = require("./routes/get/database_status")
+
+const postCreateProductRouter = require("./routes/post/create_product")
+const postCreateItemRouter = require("./routes/post/create_item");
+
+const startMognooseHealthObserver = require("./mongoose/health_observer");
+
 require("dotenv").config();
 require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
 
-const app = express();
-const PORT = process.env.PORT;
-
-app.use(cors());
-app.use(express.json());
-
+// Connect to MongoDB
 (async () => {
 	try {
     console.log("Attempting to connect to DB...")
+	startMognooseHealthObserver();
 		await mongoose.connect(process.env.MONGO_URI);
-		console.log("Connected to DB");
 	} catch (error) {
-		console.log("DB Connection failed: ", error.message);
+		console.log("CRITICAL! Failed to connect to database!", error.message);
+		exit(1);
 	}
 })()
 
-app.get("/", (_, res) => {
-  res.send("Backend working");
-});
+const PORT = process.env.PORT;
+const app = express();
 
-app.get("/db-status", (_, res) => {
-  if (mongoose.connection.readyState === 1) {
-    res.send("Database working");
-  } else {
-    res.status(500).send("Database not connected");
-  }
-});
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+app.use(getServerStatus)
+app.use(getDatabaseStatus)
+
+app.use("/api", postCreateProductRouter)
+app.use("/api", postCreateItemRouter)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

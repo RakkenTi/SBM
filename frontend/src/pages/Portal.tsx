@@ -2,6 +2,7 @@ import { createSignal, createMemo, For, Show } from "solid-js";
 import { MAX_PROJECT_DESCRIPTION_CHARS, MAX_PROJECT_NAME_CHARS } from "../modules/product_config";
 import ConfirmModal from "../components/confirm_modal";
 import LoadingModal from "../components/loading_modal";
+import { url } from "../modules/client_config";
 
 const [newProductData, setNewProductData] = createSignal({
     name: "",
@@ -101,8 +102,28 @@ const RejectCreateProduct = () => {
     setDisplayModal("NONE")
 }
 
-const AcceptCreateProduct = () => {
+const AcceptCreateProduct = async () => {
+    const data = newProductData()
     setDisplayModal("LOADING")
+    console.log("Attempting")
+    try {
+        console.log("Sending to server")
+        const response = await fetch(url + "/api/create_product", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+
+        if (response.ok) {
+            console.log("OK")
+        } else {
+            console.log("NOT OK")
+        }
+    } catch (error) {
+        console.log("ERROR:", error);
+    }
 }
 
 function Portal() {
