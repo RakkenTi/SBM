@@ -4,10 +4,11 @@
     "devDependencies": {
         "concurrently": "^9.2.1",
         "eslint": "^9.39.4",
-        "prettier": "3.8.1"
+        "prettier": "^3.8.1",
+        "prettier-plugin-tailwindcss": "^0.7.2"
     },
     "scripts": {
-        "format": "prettier --write .",
+        "format": "prettier --write \"**/*.{ts,js,tsx,jsx}\"",
         "format:check": "prettier --check .",
         "install:all": "npm install",
         "build:frontend": "cd frontend && npm run build",
