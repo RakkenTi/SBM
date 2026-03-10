@@ -38,7 +38,7 @@ for (let i = 0; i < 10; i++) {
 const ProductBacklog = () => (
     <div class="z-0 flex min-h-screen flex-col">
         <div class="pt-10"></div>
-        <BaseLine class="h-1 w-[95%]" />
+        <BaseLine class="h-1 w-[98%]" />
         <div class="flex items-center gap-6 pt-4 pl-40 font-medium text-slate-600">
             <span class="animate-slide-up text-3xl font-bold text-slate-500 opacity-0">
                 Filters:
