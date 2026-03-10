@@ -36,7 +36,7 @@ const StatCards = [
 
 const Dashboard = () => (
     <div class="z-0 flex min-h-screen flex-col">
-        <SubHeader label="Welcome, User" />
+        <SubHeader label="Welcome, User" class="text-5xl" />
         <Line />
         <div class="flex w-full flex-col justify-center gap-4 p-4 pt-10 text-center md:flex-row md:gap-8">
             <StatCard
@@ -104,7 +104,7 @@ const Dashboard = () => (
 
         <SubHeader label="Stats" />
         <Line class="bg-orange-400" />
-        <div class="flex w-full flex-wrap justify-center gap-8 p-20 pt-10 md:p-100">
+        <div class="flex w-full flex-wrap justify-center gap-8 p-20 pt-10">
             <For each={StatCards}>
                 {(item, i) => (
                     <div
