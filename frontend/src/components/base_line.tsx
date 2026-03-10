@@ -6,7 +6,7 @@ interface LineProps {
 
 const BaseLine: Component<LineProps> = (props) => (
     <div
-        class={`transition-all animate-expand-x bg-cyan-500 mx-auto mt-6 rounded-full ${props.class}`}
+        class={`animate-expand-x mx-auto mt-3 mb-3 rounded-full bg-cyan-500 transition-all ${props.class}`}
     ></div>
 )
 export default BaseLine

@@ -35,7 +35,7 @@ const BurndownChart = <T extends ChartType>(props: BurndownChartProps<T>) => {
     onCleanup(() => chart?.destroy())
 
     return (
-        <div class="transition-all duration-300 bg-white p-4 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-0.5 border-2 border-gray-200 w-full max-w-2xl animate-slide-up">
+        <div class="animate-slide-up w-full max-w-2xl rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
             <canvas ref={canvasRef} />
         </div>
     )

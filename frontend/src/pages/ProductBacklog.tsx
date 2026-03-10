@@ -1,7 +1,12 @@
-import { createSignal } from 'solid-js'
+import { createSignal, For } from 'solid-js'
 import BaseLine from '../components/base_line'
 import Select from '../components/select'
 import SubHeader from '../components/subheader'
+import StatCard from '../components/stat_card'
+import ProductBacklogCard, {
+    ProductBacklogCardProps,
+} from '../components/backlog_item_card'
+import Line from '../components/line'
 
 const [statusFilter, setStatusFilter] = createSignal<
     'ANY' | 'DO' | 'PROGRESS' | 'DONE'
@@ -17,61 +22,132 @@ const [riskFilter, setRiskFilter] = createSignal<
 
 const [teamFilter, setTeamFilter] = createSignal<'ANY' | string>('ANY')
 
+const productBacklogEntries: Array<ProductBacklogCardProps> = []
+
+for (let i = 0; i < 10; i++) {
+    productBacklogEntries.push({
+        name: 'Example Task',
+        description: 'Example task description',
+        priority: 'HIGH',
+        status: 'In Progress',
+        effort: 0,
+        assignee: 'Bobby',
+    })
+}
+
 const ProductBacklog = () => (
-    <div class="min-h-screen flex flex-col z-0">
+    <div class="z-0 flex min-h-screen flex-col">
         <div class="pt-10"></div>
-        <BaseLine class="h-1 w-[90%]" />
-        <div class="flex p-15 gap-6 pt-4 font-medium text-slate-600 items-center">
-            <span class="text-3xl font-bold text-slate-500">Filters:</span>
-            <Select
-                name="Status"
-                value={statusFilter()}
-                content={
-                    <>
-                        <option value="ANY">Select Status</option>
-                        <option value="DO">Todo</option>
-                        <option value="PROGRESS">In Progress</option>
-                        <option value="DONE">Done</option>
-                    </>
-                }
-            />
-            <Select
-                name="Priority"
-                value={priorityFilter()}
-                content={
-                    <>
-                        <option value="ANY">Select Priority</option>
-                        <option value="HIGH">High</option>
-                        <option value="MEDIUM">Medium</option>
-                        <option value="LOW">Low</option>
-                    </>
-                }
-            />
-            <Select
-                name="Risk"
-                value={riskFilter()}
-                content={
-                    <>
-                        <option value="ANY">Select Risk</option>
-                        <option value="HIGH">High</option>
-                        <option value="MEDIUM">Medium</option>
-                        <option value="LOW">Low</option>
-                    </>
-                }
-            />
-            <Select
-                name="Team"
-                value={teamFilter()}
-                content={
-                    <>
-                        {' '}
-                        <option value="ANY">Select Team</option>
-                        <option value="TEAM_1">Team 1</option>
-                    </>
-                }
-            />
-            <button class="bg-slate-200 hover:bg-slate-300 rounded-lg p-2 text-lg shadow-sm hover:shadow-md active:-y-translate-0.5 active:scale-95 hover:cursor-pointer">
-                Reset Filters
+        <BaseLine class="h-1 w-[95%]" />
+        <div class="flex items-center gap-6 pt-4 pl-40 font-medium text-slate-600">
+            <span class="animate-slide-up text-3xl font-bold text-slate-500 opacity-0">
+                Filters:
+            </span>
+            <div
+                class="animate-slide-up opacity-0"
+                style={{
+                    'animation-delay': '100ms',
+                }}
+            >
+                <Select
+                    name="Status"
+                    value={statusFilter()}
+                    content={
+                        <>
+                            <option value="ANY">Select Status</option>
+                            <option value="DO">Todo</option>
+                            <option value="PROGRESS">In Progress</option>
+                            <option value="DONE">Done</option>
+                        </>
+                    }
+                />
+            </div>
+            <div
+                class="animate-slide-up opacity-0"
+                style={{
+                    'animation-delay': '200ms',
+                }}
+            >
+                <Select
+                    name="Priority"
+                    value={priorityFilter()}
+                    content={
+                        <>
+                            <option value="ANY">Select Priority</option>
+                            <option value="HIGH">High</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="LOW">Low</option>
+                        </>
+                    }
+                />
+            </div>
+            <div
+                class="animate-slide-up opacity-0"
+                style={{
+                    'animation-delay': '300ms',
+                }}
+            >
+                <Select
+                    name="Risk"
+                    value={riskFilter()}
+                    content={
+                        <>
+                            <option value="ANY">Select Risk</option>
+                            <option value="HIGH">High</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="LOW">Low</option>
+                        </>
+                    }
+                />
+            </div>
+            <div
+                class="animate-slide-up opacity-0"
+                style={{
+                    'animation-delay': '400ms',
+                }}
+            >
+                <Select
+                    name="Team"
+                    value={teamFilter()}
+                    content={
+                        <>
+                            {' '}
+                            <option value="ANY">Select Team</option>
+                            <option value="TEAM_1">Team 1</option>
+                        </>
+                    }
+                />
+            </div>
+            <div
+                class="animate-slide-up opacity-0"
+                style={{
+                    'animation-delay': '500ms',
+                }}
+            >
+                <button class="rounded-lg bg-slate-200 p-2 text-lg shadow-sm hover:-translate-y-0.5 hover:cursor-pointer hover:bg-slate-300 hover:shadow-md active:scale-95">
+                    Reset Filters
+                </button>
+            </div>
+        </div>
+        <div class="w-full p-40 pt-10 pb-10">
+            <div class="grid grid-cols-4 gap-8">
+                <For each={productBacklogEntries}>
+                    {(entry, i) => (
+                        <div
+                            class="animate-slide-up opacity-0"
+                            style={{
+                                'animation-delay': `${i() * 100 + 750}ms`,
+                            }}
+                        >
+                            <ProductBacklogCard {...entry} />
+                        </div>
+                    )}
+                </For>
+            </div>
+        </div>
+        <div class="animate-fade-in pl-40">
+            <button class="rounded-lg border-2 border-gray-300 bg-blue-500 p-4 text-center font-semibold tracking-tight text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:cursor-pointer hover:shadow-xl active:scale-95 active:duration-50">
+                + Add Backlog Item
             </button>
         </div>
     </div>

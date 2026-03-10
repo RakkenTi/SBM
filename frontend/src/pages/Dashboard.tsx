@@ -35,10 +35,10 @@ const StatCards = [
 ]
 
 const Dashboard = () => (
-    <div class="min-h-screen flex flex-col z-0">
+    <div class="z-0 flex min-h-screen flex-col">
         <SubHeader label="Welcome, User" />
         <Line />
-        <div class="pt-10 text-center justify-center flex flex-col md:flex-row gap-4 md:gap-8 p-4 w-full">
+        <div class="flex w-full flex-col justify-center gap-4 p-4 pt-10 text-center md:flex-row md:gap-8">
             <StatCard
                 header="Level"
                 value="Product Owner"
@@ -49,7 +49,7 @@ const Dashboard = () => (
 
         <SubHeader label="Burndown Analytics" />
         <Line />
-        <div class="p-4 flex flex-col md:flex-row justify-center gap-12">
+        <div class="flex flex-col justify-center gap-12 p-4 md:flex-row">
             <BurndownChart
                 type="line"
                 data={[
@@ -104,11 +104,11 @@ const Dashboard = () => (
 
         <SubHeader label="Stats" />
         <Line class="bg-orange-400" />
-        <div class="pt-10 flex flex-wrap w-full justify-center gap-8 p-20 md:p-100">
+        <div class="flex w-full flex-wrap justify-center gap-8 p-20 pt-10 md:p-100">
             <For each={StatCards}>
                 {(item, i) => (
                     <div
-                        class="animate-slide-up opacity-0 w-1/2 md:w-1/3 "
+                        class="animate-slide-up w-1/2 opacity-0 md:w-1/3"
                         style={{
                             'animation-delay': `${i() * 100}ms`,
                         }}

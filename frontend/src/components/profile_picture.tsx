@@ -1,6 +1,6 @@
 const ProfilePicture = () => {
     return (
-        <span class="w-10 h-10 bg-gray-400 rounded-full flex items-center border-2 border-gray-500 justify-center text-white font-bold">
+        <span class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-500 bg-gray-400 font-bold text-white">
             U
         </span>
     )

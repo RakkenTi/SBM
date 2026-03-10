@@ -6,11 +6,11 @@ interface LoadingModalProps {
 
 const LoadingModal: Component<LoadingModalProps> = (props) => {
     return (
-        <div class="border-4 border-gray-200 max-w-md rounded-4xl bg-gray-100 flex items-center p-8 gap-4 zow-2xl">
-            <h1 class="text-2xl font-bold pl-4 pr-4 pt-2 pb-2">
+        <div class="zow-2xl flex max-w-md items-center gap-4 rounded-4xl border-4 border-gray-200 bg-gray-100 p-8">
+            <h1 class="pt-2 pr-4 pb-2 pl-4 text-2xl font-bold">
                 {props.label}
             </h1>
-            <i class="fa-solid fa-spinner text-4xl text-cyan-400 fa-spin"></i>
+            <i class="fa-solid fa-spinner fa-spin text-4xl text-cyan-400"></i>
         </div>
     )
 }

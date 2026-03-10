@@ -9,7 +9,7 @@ interface SelectProps {
 const Select: Component<SelectProps> = (props) => (
     <select
         value={props.value}
-        class="bg-slate-200 hover:bg-slate-300 rounded-lg p-2 text-lg shadow-sm hover:shadow-md"
+        class="rounded-lg bg-slate-200 p-2 text-lg shadow-sm hover:bg-slate-300 hover:shadow-md"
         name={props.name}
     >
         {props.content}
