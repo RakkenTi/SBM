@@ -6,11 +6,20 @@ const User = require('../../models/User')
 
 router.post('/login', async (req, res) => {
     try {
-        const { userID } = req.body // get userID from front end
+        const { userID, password } = req.body // get userID from front end
         const user = await User.findOne({ userID }) // search db for userID
+        if (!user) {
+            return res.status(404).json({ message: 'user not found' }) // not found user
+        } 
 
-        if (user) res.status(200).json({ message: 'login successful' }) // found
-        else res.status(404).json({ message: 'user not found' }) // not found
+        if (user.password !== password) {
+            return res.status(401).json({ message: 'Incorrect password' }) // password doesn't match
+        }
+
+        
+        
+        res.status(200).json({ message: 'login successful' }) // success
+
     } catch (error){
         res.status(500).json({ message: 'Login failed', error })    
     }
