@@ -40,7 +40,7 @@ app.use(getDatabaseStatus)
 
 app.use('/api', postCreateProductRouter)
 app.use('/api', postCreateItemRouter)
-app.use('/api', putUpdateItemRouter)
+// app.use('/api', putUpdateItemRouter) used as placeholder
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}!`)
