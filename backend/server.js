@@ -9,6 +9,7 @@ const postCreateProductRouter = require('./routes/post/create_product')
 const postCreateItemRouter = require('./routes/post/create_item')
 
 const startMognooseHealthObserver = require('./mongoose/health_observer')
+const applyScrumRules = require('./mongoose/scrum_rules');
 
 require('dotenv').config()
 require('node:dns/promises').setServers(['1.1.1.1', '8.8.8.8'])
@@ -19,9 +20,11 @@ require('node:dns/promises').setServers(['1.1.1.1', '8.8.8.8'])
         console.log('Attempting to connect to DB...')
         startMognooseHealthObserver()
         await mongoose.connect(process.env.MONGO_URI)
+        applyScrumRules()
+        console.log('DB Connected and Scrum Rules active.')
     } catch (error) {
         console.log('CRITICAL! Failed to connect to database!', error.message)
-        exit(1)
+        process.exit(1)
     }
 })()
 
@@ -37,6 +40,7 @@ app.use(getDatabaseStatus)
 
 app.use('/api', postCreateProductRouter)
 app.use('/api', postCreateItemRouter)
+// app.use('/api', putUpdateItemRouter) used as placeholder
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}!`)

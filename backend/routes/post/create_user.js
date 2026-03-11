@@ -5,7 +5,7 @@ const User = require('../../models/User')
 router.post('/create_user', async (req, res) => {
     try{
         // get user data sent from the frontend
-        const { firstName, lastName, userID } = req.body
+        const { firstName, lastName, userID, password } = req.body
 
         console.log('Received request to create user:', firstName, lastName, userID) // for debugging
         
@@ -13,7 +13,8 @@ router.post('/create_user', async (req, res) => {
         const user = new User({
             firstName,
             lastName,
-            userID
+            userID,
+            password
         })
 
         // save the user to MongoDB
