@@ -1,14 +1,18 @@
+import InputBox from './inputbox'
+import OptionBox from './optionbox'
 import SubHeader from './subheader'
-import Textbox from './textbox'
 
 const CreateBacklogEntryModal = () => (
     <div class="flex flex-col gap-4 rounded-xl bg-gray-200 p-8 text-center">
         <SubHeader label="Create Entry"></SubHeader>
-        <Textbox label="Name:" placeholder="Implement Stripe" />
-        <Textbox
+        <InputBox type="text" label="Name:" placeholder="Implement Stripe" />
+        <InputBox
+            type="text"
             label="Description:"
-            placeholder="Implement Stripe payment gateway."
+            placeholder="Stripe payment gateway."
         />
+        <InputBox type="number" label="Effort:" placeholder="4" />
+        <OptionBox label="DD" placeholder="boo" type="button" />
     </div>
 )
 
