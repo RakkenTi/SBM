@@ -8,6 +8,7 @@ import LoadingModal from '../components/loading_modal'
 import { url } from '../modules/client_config'
 import ProfilePicture from '../components/profile_picture'
 import Line from '../components/line'
+import ModalContainer from '../components/modal_container'
 
 const [newProductData, setNewProductData] = createSignal({
     name: '',
@@ -161,36 +162,26 @@ function Portal() {
 
     return (
         <div class="min-h-screen bg-slate-100">
-            <div
-                class={`fixed inset-0 z-10 flex w-full items-center justify-center bg-black/40 backdrop-blur-xs transition-all duration-300 ${
-                    displayedModal() === 'NONE'
-                        ? 'pointer-events-none opacity-0'
-                        : 'pointer-events-auto opacity-100'
-                }`}
-            >
-                <div
-                    class={`absolute transition-all duration-300 ${
-                        displayedModal() === 'CONFIRM'
-                            ? 'scale-100 opacity-100'
-                            : 'scale-0 opacity-0'
-                    } `}
-                >
-                    <ConfirmModal
-                        title="Create Product"
-                        acceptCallback={AcceptCreateProduct}
-                        rejectCallback={RejectCreateProduct}
-                    />
-                </div>
-                <div
-                    class={`absolute transition-all duration-300 ${
-                        displayedModal() === 'LOADING'
-                            ? 'scale-100 opacity-100'
-                            : 'scale-0 opacity-0'
-                    } `}
-                >
-                    <LoadingModal label="Creating Product" />
-                </div>
-            </div>
+            <ModalContainer
+                state={displayedModal}
+                stateSetter={setDisplayModal}
+                modals={[
+                    {
+                        state_name: 'CONFIRM',
+                        content: (
+                            <ConfirmModal
+                                title="Create Product"
+                                acceptCallback={AcceptCreateProduct}
+                                rejectCallback={RejectCreateProduct}
+                            />
+                        ),
+                    },
+                    {
+                        state_name: 'LOADING',
+                        content: <LoadingModal label="Creating Product" />,
+                    },
+                ]}
+            />
 
             <header class="fixed inset-x-0 top-0 z-10 w-full bg-cyan-500 p-8 pr-12 pl-12 text-center shadow-xl md:flex md:justify-between">
                 <h1 class="text-3xl font-bold tracking-tight text-white md:italic">
@@ -199,13 +190,16 @@ function Portal() {
                 <div class="hidden items-center gap-4 md:flex">
                     <ProfilePicture />
                     <h1 class="text-2xl font-bold text-white">
-                        Welcome, User.
+                        Welcome, John Scrum.
                     </h1>
                 </div>
             </header>
 
             <main class="flex min-h-screen flex-col justify-center pt-50 text-gray-700 transition-all duration-300 md:pt-25">
                 <div class="my-4 text-gray-700">
+                    <h1 class="animate-fade-in p-8 text-center text-xl font-bold tracking-tight text-slate-300 md:p-0 md:text-3xl">
+                        John Scrum,
+                    </h1>
                     <h1 class="animate-fade-in p-8 text-center text-4xl font-bold tracking-tight md:p-0 md:text-6xl">
                         What would you like to do?
                     </h1>

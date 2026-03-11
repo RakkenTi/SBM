@@ -1,4 +1,4 @@
-import { createSignal, For } from 'solid-js'
+import { createSignal, For, Setter } from 'solid-js'
 import BaseLine from '../components/base_line'
 import Select from '../components/select'
 import SubHeader from '../components/subheader'
@@ -7,6 +7,8 @@ import ProductBacklogCard, {
     ProductBacklogCardProps,
 } from '../components/backlog_item_card'
 import Line from '../components/line'
+import CreateBacklogEntryModal from '../components/create_backlog_entry_modal'
+import ModalContainer from '../components/modal_container'
 
 const [statusFilter, setStatusFilter] = createSignal<
     'ANY' | 'DO' | 'PROGRESS' | 'DONE'
@@ -21,6 +23,8 @@ const [riskFilter, setRiskFilter] = createSignal<
 >('ANY')
 
 const [teamFilter, setTeamFilter] = createSignal<'ANY' | string>('ANY')
+
+const [modalState, setModalState] = createSignal<'NONE' | 'CBE'>('NONE')
 
 const productBacklogEntries: Array<ProductBacklogCardProps> = []
 
@@ -37,6 +41,17 @@ for (let i = 0; i < 10; i++) {
 
 const ProductBacklog = () => (
     <div class="z-0 flex min-h-screen flex-col">
+        <ModalContainer
+            state={modalState}
+            stateSetter={setModalState}
+            modals={[
+                {
+                    state_name: 'CBE',
+                    content: <CreateBacklogEntryModal />,
+                },
+            ]}
+        />
+
         <div class="pt-10"></div>
         <BaseLine class="h-1 w-[98%]" />
         <div class="flex items-center gap-6 pt-4 pl-40 font-medium text-slate-600">
@@ -145,8 +160,18 @@ const ProductBacklog = () => (
                 </For>
             </div>
         </div>
-        <div class="animate-fade-in pl-40">
-            <button class="rounded-lg border-2 border-gray-300 bg-blue-500 p-4 text-center font-semibold tracking-tight text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:cursor-pointer hover:shadow-xl active:scale-95 active:duration-50">
+        <div
+            class="animate-slide-up pl-40 opacity-0"
+            style={{
+                'animation-delay': '1000ms',
+            }}
+        >
+            <button
+                onclick={() => {
+                    setModalState('CBE')
+                }}
+                class="z-100 rounded-lg border-2 border-gray-300 bg-blue-500 p-4 text-center font-semibold tracking-tight text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:cursor-pointer hover:shadow-xl active:scale-95 active:duration-50"
+            >
                 + Add Backlog Item
             </button>
         </div>
