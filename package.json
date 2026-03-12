@@ -21,8 +21,5 @@
     "workspaces": [
         "frontend",
         "backend"
-    ],
-    "dependencies": {
-        "bcrypt": "^6.0.0"
-    }
+    ]
 }

@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "serve": "node server.js"
+        "serve": "npm install && node server.js"
     },
     "keywords": [],
     "author": "",
