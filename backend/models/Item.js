@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const ItemSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: String,
-    type: { type: String, enum: ['Product', 'Sprint'], default: 'Product' },
+    type: { type: String, enum: ['Product', 'Sprint', 'UserStory'], default: 'Product' },
     priority: {
         type: String,
         enum: ['High', 'Medium', 'Low'],
