@@ -27,6 +27,11 @@ const CreateBacklogEntryModal = () => (
             "In Progress",
             "Done"
         ]} />
+        <OptionBox label="Team" placeholder="Team" type="button" options={[
+            "Team 1",
+            "Team 2",
+            "Team 3"
+        ]} />
         <button class="bg-slate-300 rounded-md p-2 hover:scale-105 hover:cursor-pointer active:scale-95">Create</button>
     </div>
 )
