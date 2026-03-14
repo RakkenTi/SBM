@@ -1,4 +1,5 @@
 import { Component, JSXElement } from 'solid-js'
+import InputFrame from './inputframe'
 
 type ValidInputType =
     | 'button'
@@ -31,14 +32,16 @@ interface inputboxProps {
 }
 
 const InputBox: Component<inputboxProps> = (props) => (
-    <div class="animate-slide-up flex w-full justify-between rounded-lg border border-gray-300 bg-slate-400 p-2 pr-4 pl-4 text-left font-semibold tracking-tight text-slate-600 opacity-0">
+    <InputFrame content=
+    {(<>       
         <span class="pr-2">{props.label}</span>
         <input
             placeholder={props.placeholder}
             type={props.type}
             class="float-right pr-4 text-right"
-        ></input>
-    </div>
+        ></input></>
+    )}
+    />
 )
 
 export default InputBox

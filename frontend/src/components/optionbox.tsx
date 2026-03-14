@@ -1,5 +1,6 @@
-import { Component, JSXElement } from 'solid-js'
+import { Component, For, JSXElement } from 'solid-js'
 import Select from './select'
+import InputFrame from './inputframe'
 
 type ValidInputType =
     | 'button'
@@ -29,21 +30,26 @@ interface inputboxProps {
     label: string
     placeholder: string
     type: ValidInputType
+    options: Array<string>
 }
 
 const OptionBox: Component<inputboxProps> = (props) => (
-    <div class="animate-slide-up flex w-full justify-between rounded-lg border border-gray-300 bg-slate-400 p-2 pr-4 pl-4 text-left font-semibold tracking-tight text-slate-600 opacity-0">
+    <InputFrame content={(<>
         <span class="pr-2">{props.label}</span>
         <Select
             name="d"
             value=""
             content={
-                <>
-                    <option>Test value</option>
-                </>
+                (<For each={props.options}>
+                    {
+                        (item) => 
+                            (<option>{item}</option>)
+                        
+                    }
+                </For>)
             }
         ></Select>
-    </div>
+    </>)}/>
 )
 
 export default OptionBox
