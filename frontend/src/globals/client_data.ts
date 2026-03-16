@@ -1,3 +1,5 @@
+import { createStore } from 'solid-js/store'
+
 interface ClientGlobals {
     firstName: string
     lastName: string
@@ -5,9 +7,9 @@ interface ClientGlobals {
     assignedProducts: Map<string, Map<any, any>>
 }
 
-export const ClientGlobals: ClientGlobals = {
+export const [clientData, setClientData] = createStore<ClientGlobals>({
     firstName: '',
     lastName: '',
     loggedIn: false,
     assignedProducts: new Map(),
-}
+})
