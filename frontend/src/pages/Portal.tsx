@@ -2,10 +2,10 @@ import { createSignal, createMemo, For, Show } from 'solid-js'
 import {
     MAX_PROJECT_DESCRIPTION_CHARS,
     MAX_PROJECT_NAME_CHARS,
-} from '../modules/product_config'
+} from '../globals/product_config'
 import ConfirmModal from '../components/confirm_modal'
 import LoadingModal from '../components/loading_modal'
-import { url } from '../modules/client_config'
+import { url } from '../globals/client_config'
 import ProfilePicture from '../components/profile_picture'
 import Line from '../components/line'
 import ModalContainer from '../components/modal_container'
