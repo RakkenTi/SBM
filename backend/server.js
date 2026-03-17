@@ -4,9 +4,16 @@ const mongoose = require('mongoose')
 
 const getServerStatus = require('./routes/get/server_status')
 const getDatabaseStatus = require('./routes/get/database_status')
+// Vulnerabilities
+// Kept for debugging
+const getAllItems = require('./routes/get/get_all_items')
+const getAllProducts = require("./routes/get/get_all_products")
+const getAllUsers = require("./routes/get/get_all_users")
 
 const postCreateProductRouter = require('./routes/post/create_product')
 const postCreateItemRouter = require('./routes/post/create_item')
+const postCreateUser = require("./routes/post/create_user")
+const postLogin = require("./routes/post/login")
 
 const startMognooseHealthObserver = require('./mongoose/health_observer')
 const applyScrumRules = require('./mongoose/scrum_rules');
@@ -37,10 +44,14 @@ app.use(express.json())
 
 app.use(getServerStatus)
 app.use(getDatabaseStatus)
+app.use(getAllUsers)
+app.use(getAllItems)
+app.use(getAllProducts)
 
 app.use('/api', postCreateProductRouter)
 app.use('/api', postCreateItemRouter)
-// app.use('/api', putUpdateItemRouter) used as placeholder
+app.use('/api', postCreateUser)
+app.use('/api', postLogin)
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}!`)
