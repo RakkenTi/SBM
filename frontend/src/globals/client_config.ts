@@ -1,3 +1,3 @@
-import { localURL } from '../../../shared/shared_config'
+import { localServerURL } from '../../../shared/shared_config'
 
-export const CLIENT_URL = import.meta.env.VITE_EXPRESS_URL || localURL
+export const CLIENT_URL = import.meta.env.VITE_EXPRESS_URL || localServerURL

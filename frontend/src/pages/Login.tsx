@@ -24,6 +24,7 @@ export const updateProductList = async () => {
             const data = await response.json()
             const products = data.products
             const currentAssignedProducts = []
+            console.log('Data:', data)
             for (let product of products) {
                 const assignedUsers: Array<String> = product.productUsers || []
                 if (assignedUsers.includes(clientData.userID)) {
