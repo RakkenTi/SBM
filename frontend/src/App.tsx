@@ -16,8 +16,12 @@ function App() {
 
                     createEffect(() => {
                         if (!clientData.loggedIn) {
+                            console.log(
+                                'Logged out. Switching to login/register page.',
+                            )
                             navigate('/login', { replace: true })
                         } else {
+                            console.log('Logged in. Switching to portal.')
                             navigate('/', { replace: true })
                         }
                     })
