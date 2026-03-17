@@ -26,8 +26,6 @@ const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
         password: formData.get('Password'),
     }
 
-    console.log(formData)
-
     try {
         const response = await fetch(CLIENT_URL + '/api/create_user', {
             method: 'POST',
@@ -41,6 +39,7 @@ const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
 
         if (response.ok) {
             console.log('User sucessfully created:', result.message)
+            window.location.href = '/login'
         } else {
             console.log('Failed to register user:', result.message)
             alert(result.message)
@@ -58,6 +57,7 @@ const RegisterPage = () => (
         >
             <h1 class="text-center text-xl">Register</h1>
             <InputBox
+                required
                 name="FirstName"
                 type="text"
                 label="First Name"
@@ -67,6 +67,7 @@ const RegisterPage = () => (
                 pattern={NAME_REGEX}
             />
             <InputBox
+                required
                 name="LastName"
                 type="text"
                 label="Last Name"
@@ -76,6 +77,7 @@ const RegisterPage = () => (
                 pattern={NAME_REGEX}
             />
             <InputBox
+                required
                 name="UserID"
                 type="text"
                 label="ID"
@@ -85,6 +87,7 @@ const RegisterPage = () => (
                 pattern={USER_ID_REGEX}
             />
             <InputBox
+                required
                 name="Password"
                 type="password"
                 label="Password"

@@ -3,17 +3,17 @@ const mongoose = require('mongoose')
 const ProductSchema = new mongoose.Schema({
 
     productName: String,
-
-    projectUsers: [String],
+    productDescription: String,
+    productUsers: [String],
 
     // Key = user ID, Value = role ("Developer" or "ProductOwner")
-    userLevel: {
+    userLevels: {
         type: Map,
         of: String
     },
 
     // Key = user ID, Value = sprint identifier
-    assignedSprint: {
+    assignedSprints: {
         type: Map,
         of: String
     },

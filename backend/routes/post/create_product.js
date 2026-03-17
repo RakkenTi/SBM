@@ -1,48 +1,60 @@
 const express = require('express')
 const router = express.Router()
+const User = require("../../models/User")
 const Product = require('../../models/Product')
 
 router.post('/create_product', async (req, res) => {
     try {
         // get product data from the frontend
         const {
-            productName,
-            projectUsers,
-            userLevel,
-            assignedSprint,
-            sprintComplete,
-            sprintLeft,
-            estimatedTime,
-            numberSprints,
-            daysRemSprint,
-            daysRemProduct,
-            PBLItems,
-            SBLItems
+            productData,
+            userData
         } = req.body
+
+        if (!userData || !userData.productOwner)
+        {
+            console.log("Received invalid user data. rejecting request.")
+            res.status(400).json({message: "Invalid user data."})
+            return
+        }
+
+        const productOwner = userData.productOwner     
+        const userLevelsMap = new Map()
+
+        userLevelsMap.set(productOwner, "ProductOwner")
 
         // create new Product object
         // "||" means that if not defined set default to...
         const product = new Product({
-            productName,
-            projectUsers: projectUsers || [],
-            userLevel: userLevel || {},
-            assignedSprint: assignedSprint || {},
-            sprintComplete: sprintComplete || 0,
-            sprintLeft: sprintLeft || 0,
-            estimatedTime: estimatedTime || 0,
-            numberSprints: numberSprints || 0,
-            daysRemSprint: daysRemSprint || 0,
-            daysRemProduct: daysRemProduct || 0,
-            PBLItems: PBLItems || [],
-            SBLItems: SBLItems || []
+            productName: productData.name,
+            productDescription: productData.description,
+            productUsers: [productOwner],
+            userLevels: userLevelsMap,
+            assignedSprints:  {},
+            sprintComplete: 0,
+            sprintLeft: 0,
+            estimatedTime: 0,
+            numberSprints: 0,
+            daysRemSprint: 0,
+            daysRemProduct: 0,
+            PBLItems: [],
+            SBLItems: []
         })
 
         // save
         await product.save()
 
+        // Add product entry to user's product array first
+        await User.findOneAndUpdate({userID: productOwner }, {
+            $push: {
+                products: productData.name //_idis metadata
+            } 
+        })
+
         res.status(201).json({ message: 'Product created', product })
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Failed to create product', error })
     }
 })
