@@ -1,5 +1,4 @@
-import { Component, createEffect, createSignal, onMount } from 'solid-js'
-import { CLIENT_URL } from './globals/client_config'
+import { createEffect } from 'solid-js'
 import PortalPage from './pages/Portal.js'
 import { Route, Router, useLocation, useNavigate } from '@solidjs/router'
 import ProductPage from './pages/Product'
