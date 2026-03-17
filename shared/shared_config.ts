@@ -1,0 +1,13 @@
+export const MAX_PASSWORD_LENGTH: number = 16
+export const MIN_PASSWORD_LENGTH: number = 8
+export const MAX_PROJECT_DESCRIPTION_CHARS: number = 75
+export const MAX_PROJECT_NAME_CHARS: number = 50
+export const MAX_NAME_LENGTH: number = 16
+export const MIN_NAME_LENGTH: number = 1
+export const MIN_ID_LENGTH: number = 1
+export const MAX_ID_LENGTH: number = 16
+export const NAME_REGEX: string = '^[A-Za-z\\s\-]+$'
+export const USER_ID_REGEX: string = '^[A-Za-z0-9]+$'
+export const PASSSWORD_REGEX: string = '^[A-Za-z0-9_!@#$%]+$'
+export const GENERIC_ALPHANUMERIC_REGEX: string = '^[A-Za-z\\s0-9]+$'
+export const localURL: string = 'http://localhost:5173'

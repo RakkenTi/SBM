@@ -26,7 +26,6 @@ export const updateProductList = async () => {
             const currentAssignedProducts = []
             for (let product of products) {
                 const assignedUsers: Array<String> = product.productUsers || []
-                console.log(assignedUsers, clientData.userID)
                 if (assignedUsers.includes(clientData.userID)) {
                     const productData: ProductDescriptor = {
                         name: product.productName,
@@ -63,6 +62,7 @@ const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify(registerData),
         })
 

@@ -19,6 +19,16 @@ router.post('/login', async (req, res) => {
         if (!match) {
             return res.status(401).json({ message: 'Incorrect password' }) // password doesn't match
         }
+        
+        // logged in by this point
+        res.cookie('session_id', user._id.toString(),
+        {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24,
+            sameSite: 'lax',
+            secure: false,
+            path: "/"
+        })
 
         const { firstName, lastName, products } = user //get user name
         res.status(200).json({ firstName, lastName, userID, products }) // success

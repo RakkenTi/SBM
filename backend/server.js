@@ -1,6 +1,11 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const cookieParser = require("cookie-parser")
+
+const shared_config = require("./../shared/shared_config")
+
+const getSession = require("./routes/get/get_session")
 
 const getServerStatus = require('./routes/get/server_status')
 const getDatabaseStatus = require('./routes/get/database_status')
@@ -37,16 +42,25 @@ require('node:dns/promises').setServers(['1.1.1.1', '8.8.8.8'])
 
 const PORT = process.env.PORT
 const app = express()
+const origin = process.env.FRONTEND_URL || shared_config.localURL
 
 // Middleware
-app.use(cors())
+app.use(cors({
+    origin: origin,
+    credentials: true // cookies
+}))
+
+console.log("Cors Origin is set to:", origin)
+
 app.use(express.json())
+app.use(cookieParser())
 
 app.use(getServerStatus)
 app.use(getDatabaseStatus)
 app.use(getAllUsers)
 app.use(getAllItems)
 app.use(getAllProducts)
+app.use(getSession)
 
 app.use('/api', postCreateProductRouter)
 app.use('/api', postCreateItemRouter)

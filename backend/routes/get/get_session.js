@@ -1,0 +1,33 @@
+const express = require('express');
+const User = require('../../models/User');
+const router = express.Router()
+
+router.get('/session', async (req, res) => {
+    try {
+        const sessionId = req.cookies.session_id; // Requires 'cookie-parser' middleware
+
+        console.log("Received request to retrieve session data")
+        console.log("Session ID:", sessionId)
+
+        if (!sessionId) {
+            console.log("Session ID invalid!")
+            return res.status(401).json({ loggedIn: false });
+        }
+
+        const user = await User.findById(sessionId);
+        if (!user) {
+            console.log("No user found in db!")
+            return res.status(404).json({ loggedIn: false });
+        }
+
+        const { firstName, lastName, userID, products } = user;
+        console.log("Retrieved user data.")
+        res.status(200).json({ firstName, lastName, userID, products, loggedIn: true });
+
+    } catch (error) {
+        console.error("Encountered error: ", error)
+        res.status(500).json({ message: 'Session check failed' });
+    }
+});
+
+module.exports = router
