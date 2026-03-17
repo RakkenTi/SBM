@@ -22,16 +22,6 @@ const [displayedModal, setDisplayModal] = createSignal<
     'NONE' | 'CONFIRM' | 'LOADING'
 >('NONE')
 
-const [products, setProducts] = createSignal([
-    { name: 'Sample Product', description: 'Sample product description' },
-    { name: 'Sample Product 2', description: 'Sample product description 2' },
-    {
-        name: 'Lorem Ipsum Product',
-        description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime nostrum blanditiis possimus dignissimos commodi. Vitae, repellat. Inventore at ratione ipsa quod iusto repellat incidunt? Deleniti minima perferendis dolorem molestiae aperiam?',
-    },
-])
-
 const getCreateButtonColour = createMemo(() => {
     const data = newProductData()
     if (data.description.trim().length <= 0 || data.name.trim().length <= 0) {
@@ -116,7 +106,7 @@ const viewProductsContent = (
     <div class="flex flex-col gap-4 p-2 md:p-4">
         <h2 class="text-center text-2xl font-bold">Product List</h2>
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <For each={products()}>
+            <For each={clientData.assignedProducts}>
                 {(product) => (
                     <a
                         href="/product"

@@ -9,7 +9,7 @@ import {
 } from '../../../shared/shared_config'
 import { JSX } from 'solid-js/h/jsx-runtime'
 import { CLIENT_URL } from '../globals/client_config'
-import { setClientData } from '../globals/client_data'
+import { ProductDescriptor, setClientData } from '../globals/client_data'
 
 const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     event,
@@ -30,6 +30,31 @@ const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
             },
             body: JSON.stringify(registerData),
         })
+
+        // Fill in products
+        try {
+            const response = await fetch(CLIENT_URL + '/all_products')
+
+            if (response.ok) {
+                const data = await response.json()
+                const products = data.products
+                const currentAssignedProducts = []
+                for (let product of products) {
+                    const productData: ProductDescriptor = {
+                        name: product.productName,
+                        description: product.productDescription,
+                    }
+                    currentAssignedProducts.push(productData)
+                }
+                setClientData('assignedProducts', currentAssignedProducts)
+            } else {
+                console.log('Response not OK.')
+                return
+            }
+        } catch (error) {
+            console.log('Failed to fetch all products:', error)
+            return
+        }
 
         const result = await response.json()
 

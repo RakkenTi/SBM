@@ -1,11 +1,16 @@
 import { createStore } from 'solid-js/store'
 
+export interface ProductDescriptor {
+    name: string
+    description: string
+}
+
 interface ClientGlobals {
     userID: string
     firstName: string
     lastName: string
     loggedIn: boolean
-    assignedProducts: Map<string, Map<any, any>>
+    assignedProducts: Array<ProductDescriptor>
 }
 
 export const [clientData, setClientData] = createStore<ClientGlobals>({
@@ -13,5 +18,5 @@ export const [clientData, setClientData] = createStore<ClientGlobals>({
     firstName: '',
     lastName: '',
     loggedIn: false,
-    assignedProducts: new Map(),
+    assignedProducts: [],
 })

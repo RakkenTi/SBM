@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Item = require('../../models/Item')
 
-router.get('/all', async (req, res) => {
+router.get('/all_items', async (req, res) => {
     try {
         // fetch all items from MongoDB
         const items = await Item.find()
