@@ -137,7 +137,6 @@ const RejectCreateProduct = () => {
 const AcceptCreateProduct = async () => {
     const data = newProductData()
     setDisplayModal('LOADING')
-    console.log('Attempting')
     try {
         console.log('Sending to server')
         const response = await fetch(CLIENT_URL + '/api/create_product', {

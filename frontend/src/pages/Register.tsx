@@ -12,6 +12,9 @@ import {
 } from '../../../shared/shared_config'
 import InputBox from '../components/inputbox'
 import { CLIENT_URL } from '../globals/client_config'
+import { createEffect } from 'solid-js/types/server/reactive.js'
+import { useNavigate } from '@solidjs/router'
+import { clientData } from '../globals/client_data'
 
 const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     event,
@@ -26,7 +29,13 @@ const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
         password: formData.get('Password'),
     }
 
-    console.log(formData)
+    const navigate = useNavigate()
+
+    createEffect(() => {
+        if (clientData.loggedIn) {
+            navigate('/', { replace: true })
+        }
+    })
 
     try {
         const response = await fetch(CLIENT_URL + '/api/create_user', {
