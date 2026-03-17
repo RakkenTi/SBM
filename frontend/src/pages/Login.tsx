@@ -9,9 +9,7 @@ import {
 } from '../../../shared/shared_config'
 import { JSX } from 'solid-js/h/jsx-runtime'
 import { CLIENT_URL } from '../globals/client_config'
-import { clientData, setClientData } from '../globals/client_data'
-import { useNavigate } from '@solidjs/router'
-import { createEffect } from 'solid-js'
+import { setClientData } from '../globals/client_data'
 
 const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     event,
@@ -53,14 +51,6 @@ const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
 }
 
 const LoginPage = () => {
-    const navigate = useNavigate()
-
-    createEffect(() => {
-        if (clientData.loggedIn) {
-            navigate('/', { replace: true })
-        }
-    })
-
     return (
         <div class="z-0 flex min-h-screen items-center justify-center bg-slate-300 transition-all duration-300">
             <form
