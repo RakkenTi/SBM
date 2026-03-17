@@ -1,4 +1,4 @@
-import { createSignal, createMemo, For, Show } from 'solid-js'
+import { createSignal, createMemo, For, Show, createEffect } from 'solid-js'
 import {
     GENERIC_ALPHANUMERIC_REGEX,
     MAX_PROJECT_DESCRIPTION_CHARS,
@@ -12,6 +12,7 @@ import Line from '../components/line'
 import ModalContainer from '../components/modal_container'
 import { clientData } from '../globals/client_data'
 import { JSX } from 'solid-js/h/jsx-runtime'
+import { updateProductList } from './Login'
 
 const [newProductData, setNewProductData] = createSignal({
     name: '',
@@ -161,6 +162,8 @@ const AcceptCreateProduct = async () => {
             alert('Failed to create product. Try again later.')
             setDisplayModal('NONE')
         }
+
+        await updateProductList()
     } catch (error) {
         console.log('ERROR:', error)
     }
@@ -168,6 +171,11 @@ const AcceptCreateProduct = async () => {
 
 function Portal() {
     const [action, setAction] = createSignal(actions[1].id)
+
+    createEffect(() => {
+        action()
+        updateProductList()
+    })
 
     return (
         <div class="min-h-screen bg-slate-100">
