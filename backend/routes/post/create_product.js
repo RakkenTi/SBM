@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const User = require("../../models/User")
 const Product = require('../../models/Product')
 
 router.post('/create_product', async (req, res) => {
@@ -10,15 +11,16 @@ router.post('/create_product', async (req, res) => {
             userData
         } = req.body
 
-        const userLevelsMap = new Map()
-        if (!userData.productOwner)
+        if (!userData || !userData.productOwner)
         {
             console.log("Received invalid user data. rejecting request.")
             res.status(400).json({message: "Invalid user data."})
             return
         }
 
-        const productOwner = userData.productOwner
+        const productOwner = userData.productOwner     
+        const userLevelsMap = new Map()
+
         userLevelsMap.set(productOwner, "ProductOwner")
 
         // create new Product object
@@ -42,9 +44,17 @@ router.post('/create_product', async (req, res) => {
         // save
         await product.save()
 
+        // Add product entry to user's product array first
+        await User.findOneAndUpdate({userID: productOwner }, {
+            $push: {
+                products: productData.name //_idis metadata
+            } 
+        })
+
         res.status(201).json({ message: 'Product created', product })
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Failed to create product', error })
     }
 })

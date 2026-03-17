@@ -13,8 +13,7 @@ import {
 import InputBox from '../components/inputbox'
 import { CLIENT_URL } from '../globals/client_config'
 import { createEffect } from 'solid-js'
-import { useNavigate } from '@solidjs/router'
-import { clientData } from '../globals/client_data'
+import { clientData, setClientData } from '../globals/client_data'
 
 const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     event,
@@ -29,14 +28,6 @@ const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
         password: formData.get('Password'),
     }
 
-    const navigate = useNavigate()
-
-    createEffect(() => {
-        if (clientData.loggedIn) {
-            navigate('/', { replace: true })
-        }
-    })
-
     try {
         const response = await fetch(CLIENT_URL + '/api/create_user', {
             method: 'POST',
@@ -50,6 +41,7 @@ const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
 
         if (response.ok) {
             console.log('User sucessfully created:', result.message)
+            window.location.href = '/login'
         } else {
             console.log('Failed to register user:', result.message)
             alert(result.message)
