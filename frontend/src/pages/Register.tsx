@@ -11,6 +11,7 @@ import {
     USER_ID_REGEX,
 } from '../../../shared/shared_config'
 import InputBox from '../components/inputbox'
+import { CLIENT_URL } from '../globals/client_config'
 
 const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     event,
@@ -28,7 +29,7 @@ const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     console.log(formData)
 
     try {
-        const response = await fetch('/api/create_user', {
+        const response = await fetch(CLIENT_URL + '/api/create_user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

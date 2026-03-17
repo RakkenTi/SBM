@@ -11,7 +11,7 @@ router.post('/create_user', async (req, res) => {
         const existingUser = await User.findOne({ userID }) //check if userID exists 
 
         if (existingUser) {
-            return res.status(400).json({ message: 'user already exists'}) 
+            return res.status(400).json({ message: 'User already exists! Choose a new username'}) 
         }
 
         const hashedPassword = await bcrypt.hash(password, 8)

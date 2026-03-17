@@ -1,5 +1,5 @@
 import { Component, createEffect, createSignal, onMount } from 'solid-js'
-import { url } from './globals/client_config'
+import { CLIENT_URL } from './globals/client_config'
 import PortalPage from './pages/Portal.js'
 import { Route, Router, useLocation, useNavigate } from '@solidjs/router'
 import ProductPage from './pages/Product'
@@ -17,6 +17,8 @@ function App() {
                     createEffect(() => {
                         if (!clientData.loggedIn) {
                             navigate('/login', { replace: true })
+                        } else {
+                            navigate('/', { replace: true })
                         }
                     })
 

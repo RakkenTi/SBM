@@ -5,7 +5,7 @@ import {
 } from '../../../shared/shared_config'
 import ConfirmModal from '../components/confirm_modal'
 import LoadingModal from '../components/loading_modal'
-import { url } from '../globals/client_config'
+import { CLIENT_URL } from '../globals/client_config'
 import ProfilePicture from '../components/profile_picture'
 import Line from '../components/line'
 import ModalContainer from '../components/modal_container'
@@ -140,7 +140,7 @@ const AcceptCreateProduct = async () => {
     console.log('Attempting')
     try {
         console.log('Sending to server')
-        const response = await fetch(url + '/api/create_product', {
+        const response = await fetch(CLIENT_URL + '/api/create_product', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
