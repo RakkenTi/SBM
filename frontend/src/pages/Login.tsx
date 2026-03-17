@@ -11,7 +11,7 @@ import { JSX } from 'solid-js/h/jsx-runtime'
 import { CLIENT_URL } from '../globals/client_config'
 import { clientData, setClientData } from '../globals/client_data'
 import { useNavigate } from '@solidjs/router'
-import { createEffect } from 'solid-js/types/server/reactive.js'
+import { createEffect } from 'solid-js'
 
 const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     event,
@@ -36,8 +36,13 @@ const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
         const result = await response.json()
 
         if (response.ok) {
-            console.log('User sucessfully logged in:', result.message)
+            const firstName = result.firstName
+            const lastName = result.lastName
+            const userID = result.userID
             setClientData('loggedIn', true)
+            setClientData('firstName', firstName)
+            setClientData('lastName', lastName)
+            setClientData('userID', userID)
         } else {
             console.log('Failed to login:', result.message)
             alert(result.message)

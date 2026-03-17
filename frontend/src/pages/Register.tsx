@@ -12,7 +12,7 @@ import {
 } from '../../../shared/shared_config'
 import InputBox from '../components/inputbox'
 import { CLIENT_URL } from '../globals/client_config'
-import { createEffect } from 'solid-js/types/server/reactive.js'
+import { createEffect } from 'solid-js'
 import { useNavigate } from '@solidjs/router'
 import { clientData } from '../globals/client_data'
 
@@ -67,6 +67,7 @@ const RegisterPage = () => (
         >
             <h1 class="text-center text-xl">Register</h1>
             <InputBox
+                required
                 name="FirstName"
                 type="text"
                 label="First Name"
@@ -76,6 +77,7 @@ const RegisterPage = () => (
                 pattern={NAME_REGEX}
             />
             <InputBox
+                required
                 name="LastName"
                 type="text"
                 label="Last Name"
@@ -85,6 +87,7 @@ const RegisterPage = () => (
                 pattern={NAME_REGEX}
             />
             <InputBox
+                required
                 name="UserID"
                 type="text"
                 label="ID"
@@ -94,6 +97,7 @@ const RegisterPage = () => (
                 pattern={USER_ID_REGEX}
             />
             <InputBox
+                required
                 name="Password"
                 type="password"
                 label="Password"

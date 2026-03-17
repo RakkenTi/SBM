@@ -23,7 +23,8 @@ router.post('/create_user', async (req, res) => {
             firstName,
             lastName,
             userID,
-            password: hashedPassword
+            password: hashedPassword,
+            products: []
         })
 
         // save the user to MongoDB
