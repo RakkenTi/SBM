@@ -1,5 +1,6 @@
-import { Component, JSXElement } from 'solid-js'
+import { Component, JSXElement, splitProps } from 'solid-js'
 import InputFrame from './inputframe'
+import { JSX } from 'solid-js/h/jsx-runtime'
 
 type ValidInputType =
     | 'button'
@@ -25,27 +26,26 @@ type ValidInputType =
     | 'url'
     | 'week'
 
-interface inputboxProps {
+interface inputboxProps extends JSX.InputHTMLAttributes<HTMLInputElement> {
     label: string
-    placeholder: string
-    type: ValidInputType
-    maxLength?: number
 }
 
-const InputBox: Component<inputboxProps> = (props) => (
-    <InputFrame
-        content={
-            <>
-                <span class="pr-2">{props.label}</span>
-                <input
-                    placeholder={props.placeholder}
-                    type={props.type}
-                    maxLength={props.maxLength}
-                    class="float-right pr-4 text-right"
-                ></input>
-            </>
-        }
-    />
-)
+const InputBox: Component<inputboxProps> = (props) => {
+    const [_, others] = splitProps(props, ['label'])
+
+    return (
+        <InputFrame
+            content={
+                <>
+                    <span class="pr-2">{props.label}</span>
+                    <input
+                        {...(others as any)}
+                        class="float-right pr-4 text-right"
+                    ></input>
+                </>
+            }
+        />
+    )
+}
 
 export default InputBox
