@@ -1,0 +1,11 @@
+export const MAX_PASSWORD_LENGTH: number = 16
+export const MIN_PASSWORD_LENGTH: number = 8
+export const MAX_PROJECT_DESCRIPTION_CHARS = 75
+export const MAX_PROJECT_NAME_CHARS = 50
+export const MAX_NAME_LENGTH = 16
+export const MIN_NAME_LENGTH = 1
+export const MIN_ID_LENGTH = 1
+export const MAX_ID_LENGTH = 16
+export const NAME_REGEX = '^[A-Za-z\s\-]+$'
+export const USER_ID_REGEX = '^[A-Za-z0-9]+$'
+export const PASSSWORD_REGEX = '^[A-Za-z0-9_!@#$%]+$'

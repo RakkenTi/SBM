@@ -3,6 +3,7 @@ import ProfilePicture from '../components/profile_picture'
 import NavButton from '../components/nav_button'
 import Dashboard from './Dashboard'
 import ProductBacklog from './ProductBacklog'
+import SprintBacklog from './Sprint'
 
 const navbar_buttons = [
     { name: 'Dashboard', icon: '' },
@@ -47,6 +48,10 @@ function Product() {
 
             <Show when={tab() === 'Product Backlog'}>
                 <ProductBacklog />
+            </Show>
+
+            <Show when={tab() === 'Sprint Backlog'}>
+                <SprintBacklog />
             </Show>
         </div>
     )

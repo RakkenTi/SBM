@@ -2,13 +2,14 @@ import { createSignal, createMemo, For, Show } from 'solid-js'
 import {
     MAX_PROJECT_DESCRIPTION_CHARS,
     MAX_PROJECT_NAME_CHARS,
-} from '../modules/product_config'
+} from '../../../shared/shared_config'
 import ConfirmModal from '../components/confirm_modal'
 import LoadingModal from '../components/loading_modal'
-import { url } from '../modules/client_config'
+import { CLIENT_URL } from '../globals/client_config'
 import ProfilePicture from '../components/profile_picture'
 import Line from '../components/line'
 import ModalContainer from '../components/modal_container'
+import { clientData } from '../globals/client_data'
 
 const [newProductData, setNewProductData] = createSignal({
     name: '',
@@ -139,7 +140,7 @@ const AcceptCreateProduct = async () => {
     console.log('Attempting')
     try {
         console.log('Sending to server')
-        const response = await fetch(url + '/api/create_product', {
+        const response = await fetch(CLIENT_URL + '/api/create_product', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

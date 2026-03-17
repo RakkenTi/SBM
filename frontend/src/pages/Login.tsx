@@ -1,0 +1,85 @@
+import InputBox from '../components/inputbox'
+import {
+    MAX_ID_LENGTH,
+    MAX_PASSWORD_LENGTH,
+    MIN_ID_LENGTH,
+    MIN_PASSWORD_LENGTH,
+    PASSSWORD_REGEX,
+    USER_ID_REGEX,
+} from '../../../shared/shared_config'
+import { JSX } from 'solid-js/h/jsx-runtime'
+import { CLIENT_URL } from '../globals/client_config'
+import { clientData, setClientData } from '../globals/client_data'
+
+const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
+    event,
+) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+
+    const registerData = {
+        userID: formData.get('UserID'),
+        password: formData.get('Password'),
+    }
+
+    try {
+        const response = await fetch(CLIENT_URL + '/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(registerData),
+        })
+
+        const result = await response.json()
+
+        if (response.ok) {
+            console.log('User sucessfully logged in:', result.message)
+            setClientData('loggedIn', true)
+        } else {
+            console.log('Failed to login:', result.message)
+            alert(result.message)
+        }
+    } catch (error) {
+        console.log('Error:', error)
+    }
+}
+
+const LoginPage = () => (
+    <div class="z-0 flex min-h-screen items-center justify-center bg-slate-300 transition-all duration-300">
+        <form
+            onSubmit={handleLogin}
+            class="flex flex-col gap-4 rounded-md bg-slate-200 p-4 font-semibold"
+        >
+            <h1 class="text-center text-xl">Login</h1>
+            <InputBox
+                name="UserID"
+                type="text"
+                label="ID"
+                placeholder=""
+                maxLength={MAX_ID_LENGTH}
+                minLength={MIN_ID_LENGTH}
+                pattern={USER_ID_REGEX}
+            />
+            <InputBox
+                name="Password"
+                type="password"
+                label="Password"
+                placeholder=""
+                maxLength={MAX_PASSWORD_LENGTH}
+                minLength={MIN_PASSWORD_LENGTH}
+                pattern={PASSSWORD_REGEX}
+            />
+            <button class="rounded-md bg-slate-300 p-2 hover:scale-105 hover:cursor-pointer active:scale-95">
+                Login
+            </button>
+            <a href="/register" class="flex justify-center">
+                <span class="rounded-sm bg-blue-200 p-2 pr-4 pl-4 text-center text-sm font-normal tracking-tight text-slate-700 hover:scale-105 hover:cursor-pointer active:scale-95">
+                    New User? Click here to register.
+                </span>
+            </a>
+        </form>
+    </div>
+)
+
+export default LoginPage

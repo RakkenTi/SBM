@@ -1,2 +1,0 @@
-export const MAX_PROJECT_DESCRIPTION_CHARS = 75
-export const MAX_PROJECT_NAME_CHARS = 50
