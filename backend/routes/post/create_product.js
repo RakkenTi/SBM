@@ -11,6 +11,15 @@ router.post('/create_product', async (req, res) => {
             userData
         } = req.body
 
+        const productExists = await Product.findOne({ productName: productData.name })
+
+        if (productExists)
+        {
+            return res.status(409).json({
+                message: "Product with this name already exists."
+            })
+        }
+
         if (!userData || !userData.productOwner)
         {
             console.log("Received invalid user data. rejecting request.")
