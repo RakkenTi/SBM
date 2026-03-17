@@ -20,7 +20,8 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Incorrect password' }) // password doesn't match
         }
 
-        res.status(200).json({ message: 'login successful' }) // success
+        const { firstName, lastName } = user //get user name
+        res.status(200).json({ firstName, lastName, userID }) // success
 
     } catch (error){
         res.status(500).json({ message: 'Login failed', error })    
