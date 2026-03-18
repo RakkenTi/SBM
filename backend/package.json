@@ -5,8 +5,10 @@
     "main": "dist/backend/server.js",
     "scripts": {
         "clean": "rm -rf dist",
-        "build": "tsc",
+        "build:backend": "tsc",
         "start": "node dist/backend/server.js",
+        "build:frontend": "cd ../ && npm run build:frontend",
+        "build": "npm run build:frontend && npm run build:backend",
         "serve": "npm run clean && npm run build && npm run start",
         "serve_dev": "tsx watch --include \".\" --include \"../shared/**/*\" server.ts"
     },
