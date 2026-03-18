@@ -21,6 +21,7 @@ import startMognooseHealthObserver from './mongoose/health_observer'
 import applyScrumRules from './mongoose/scrum_rules'
 import { setServers } from 'node:dns/promises'
 import { config } from 'dotenv'
+import { join } from 'node:path'
 
 config()
 setServers(['1.1.1.1', '8.8.8.8'])
@@ -67,6 +68,14 @@ app.use('/api', postCreateProductRouter)
 app.use('/api', postCreateItemRouter)
 app.use('/api', postCreateUser)
 app.use('/api', postLogin)
+
+// fallback to origin on invalid routes
+// adresses Issue #23
+app.get('/*splat', (_, res) => {
+    console.log('Fallback route triggered')
+    const path = join(__dirname, '../../frontend/dist/index.html')
+    res.sendFile(path)
+})
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}!`)
