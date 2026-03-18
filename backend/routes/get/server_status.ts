@@ -1,8 +1,8 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 
 router.get('/', async (_, res) => {
     res.send('Backend working')
 })
 
-module.exports = router
+export default router

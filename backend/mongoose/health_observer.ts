@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const startMognooseHealthObserver = () => {
     mongoose.connection.on('connected', () => {
@@ -16,4 +16,4 @@ const startMognooseHealthObserver = () => {
     console.log('MongoDB Health Observer started')
 }
 
-module.exports = startMognooseHealthObserver
+export default startMognooseHealthObserver

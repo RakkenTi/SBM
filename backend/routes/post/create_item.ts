@@ -1,9 +1,8 @@
-const express = require('express')
+import express from 'express'
+import { ItemModel } from '../../models/Item'
 const router = express.Router()
-const Item = require('../../models/Item')
 
 router.post('/create_item', async (req, res) => {
-
     try {
         // get item data from frontend
         const {
@@ -15,12 +14,12 @@ router.post('/create_item', async (req, res) => {
             effort,
             risk,
             teamLabel,
-            isLocked
+            isLocked,
         } = req.body
 
         // create new Item object
         // "||" means that if not defined set default to...
-        const item = new Item({
+        const item = new ItemModel({
             title,
             description: description || '',
             type: type || 'Task',
@@ -29,16 +28,15 @@ router.post('/create_item', async (req, res) => {
             effort: effort || 0,
             risk: risk || 'Low',
             teamLabel: teamLabel || '',
-            isLocked: isLocked || false
+            isLocked: isLocked || false,
         })
 
         await item.save()
 
         res.status(201).json({ message: 'Item created', item })
-
     } catch (error) {
         res.status(500).json({ message: 'Failed to create item', error })
     }
 })
 
-module.exports = router
+export default router

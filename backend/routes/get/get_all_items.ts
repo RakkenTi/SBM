@@ -1,18 +1,17 @@
-const express = require('express')
+import express from 'express'
+import { ItemModel } from '../../models/Item'
 const router = express.Router()
-const Item = require('../../models/Item')
 
-router.get('/all_items', async (req, res) => {
+router.get('/all_items', async (_, res) => {
     try {
         // fetch all items from MongoDB
-        const items = await Item.find()
+        const items = await ItemModel.find()
 
         // return them in JSON
         res.status(200).json({ items })
-
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch items', error })
     }
 })
 
-module.exports = router
+export default router

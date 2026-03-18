@@ -1,6 +1,6 @@
-const express = require('express')
+import express from 'express'
+import { UserModel } from '../../models/User'
 const router = express.Router()
-const User = require('../../models/User')
 
 router.post('/check_user', async (req, res) => {
     try {
@@ -11,14 +11,13 @@ router.post('/check_user', async (req, res) => {
         }
 
         // search for user in MongoDB
-        const userFind = await User.exists({ userID })
+        const userFind = await UserModel.exists({ userID })
 
         // return true if id found, false if not
         res.status(200).json(!!userFind)
-
     } catch (error) {
         res.status(500).json(false)
     }
 })
 
-module.exports = router
+export default router

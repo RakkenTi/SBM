@@ -1,21 +1,20 @@
-const mongoose = require('mongoose')
+import { InferSchemaType, model, Schema } from 'mongoose'
 
-const ProductSchema = new mongoose.Schema({
-
+const ProductSchema = new Schema({
     productName: String,
     productDescription: String,
-    productUsers: [String],
+    productUsers: Array<String>,
 
     // Key = user ID, Value = role ("Developer" or "ProductOwner")
     userLevels: {
-        type: Map,
-        of: String
+        type: Map<String, String>,
+        of: String,
     },
 
     // Key = user ID, Value = sprint identifier
     assignedSprints: {
-        type: Map,
-        of: String
+        type: Map<String, String>,
+        of: String,
     },
 
     sprintComplete: Number,
@@ -27,7 +26,8 @@ const ProductSchema = new mongoose.Schema({
 
     //PBL VARS
     PBLItems: Array,
-    SBLItems: Array
+    SBLItems: Array,
 })
 
-module.exports = mongoose.model('Product', ProductSchema)
+export type Product = InferSchemaType<typeof ProductSchema>
+export const ProductModel = model<Product>('Product', ProductSchema)

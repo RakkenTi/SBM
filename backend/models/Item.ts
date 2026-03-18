@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import { Schema, InferSchemaType, model } from 'mongoose'
 
-const ItemSchema = new mongoose.Schema({
+const ItemSchema = new Schema({
     title: { type: String, required: true },
     description: String,
     type: { type: String, enum: ['Task', 'UserStory'], default: 'Task' },
@@ -20,4 +20,5 @@ const ItemSchema = new mongoose.Schema({
     isLocked: { type: Boolean, default: false },
 })
 
-module.exports = mongoose.model('Item', ItemSchema)
+export type Item = InferSchemaType<typeof ItemSchema>
+export const ItemModel = model<Item>('Item', ItemSchema)
