@@ -18,7 +18,7 @@ import {
 export const updateProductList = async () => {
     // Fill in products
     try {
-        const response = await fetch(CLIENT_URL + '/all_products')
+        const response = await fetch(CLIENT_URL + '/api/all_products')
 
         if (response.ok) {
             const data = await response.json()

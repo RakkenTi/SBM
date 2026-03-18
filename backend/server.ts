@@ -57,12 +57,12 @@ console.log('Cors Origin is set to:', originURL)
 app.use(express.json())
 app.use(cookieParser())
 
-app.use(getServerStatus)
-app.use(getDatabaseStatus)
-app.use(getAllUsers)
-app.use(getAllItems)
-app.use(getAllProducts)
-app.use(getSession)
+app.use('/api', getServerStatus)
+app.use('/api', getDatabaseStatus)
+app.use('/api', getAllUsers)
+app.use('/api', getAllItems)
+app.use('/api', getAllProducts)
+app.use('/api', getSession)
 
 app.use('/api', postCreateProductRouter)
 app.use('/api', postCreateItemRouter)
@@ -73,7 +73,7 @@ app.use('/api', postLogin)
 // adresses Issue #23
 app.get('/*splat', (_, res) => {
     console.log('Fallback route triggered')
-    const path = join(__dirname, '../../frontend/dist/index.html')
+    const path = join(__dirname, '../frontend/dist/index.html')
     res.sendFile(path)
 })
 

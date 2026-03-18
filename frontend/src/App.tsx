@@ -12,7 +12,7 @@ function App() {
 
     onMount(async () => {
         try {
-            const response = await fetch(CLIENT_URL + '/session', {
+            const response = await fetch(CLIENT_URL + '/api/session', {
                 credentials: 'include',
             })
 
