@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
 
-router.get('/', async (_, res) => {
+router.get('/server_status', async (_, res) => {
     res.send('Backend working')
 })
 
