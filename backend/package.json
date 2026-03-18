@@ -4,7 +4,7 @@
     "description": "",
     "main": "dist/backend/server.js",
     "scripts": {
-        "clean": "rm -r dist",
+        "clean": "rm -rf dist",
         "build": "tsc",
         "start": "node dist/backend/server.js",
         "serve": "npm run clean && npm run build && npm run start",
