@@ -71,7 +71,7 @@ app.use('/api', postLogin)
 
 // fallback to origin on invalid routes
 // adresses Issue #23
-app.get('/*splat', (_, res) => {
+app.use((_, res) => {
     console.log('Fallback route triggered')
     const path = join(__dirname, '../frontend/dist/index.html')
     res.sendFile(path)
