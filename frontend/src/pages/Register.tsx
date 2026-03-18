@@ -27,7 +27,7 @@ const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     }
 
     try {
-        const response = await fetch(CLIENT_URL + '/api/create_user', {
+        const response = await fetch('/api/create_user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

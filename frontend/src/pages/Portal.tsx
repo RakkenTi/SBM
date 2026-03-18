@@ -141,7 +141,7 @@ const AcceptCreateProduct = async () => {
     setDisplayModal('LOADING')
     try {
         console.log('Sending to server')
-        const response = await fetch(CLIENT_URL + '/api/create_product', {
+        const response = await fetch('/api/create_product', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

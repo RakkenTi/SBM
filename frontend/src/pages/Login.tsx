@@ -18,7 +18,7 @@ import {
 export const updateProductList = async () => {
     // Fill in products
     try {
-        const response = await fetch(CLIENT_URL + '/api/all_products')
+        const response = await fetch('/api/all_products')
 
         if (response.ok) {
             const data = await response.json()
@@ -58,7 +58,7 @@ const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     }
 
     try {
-        const response = await fetch(CLIENT_URL + '/api/login', {
+        const response = await fetch('/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
