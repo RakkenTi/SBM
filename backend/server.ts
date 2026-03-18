@@ -54,7 +54,7 @@ app.use(
 
 console.log('Cors Origin is set to:', originURL)
 
-const folderPath = join(__dirname, '../frontend/dist')
+const folderPath = join(__dirname, '../../frontend/dist')
 const path = join(folderPath, 'index.html')
 app.use(express.json())
 app.use(cookieParser())
