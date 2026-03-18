@@ -54,6 +54,7 @@ app.use(
 
 console.log('Cors Origin is set to:', originURL)
 
+app.use(express.static('dist'))
 app.use(express.json())
 app.use(cookieParser())
 
@@ -71,7 +72,7 @@ app.use('/api', postLogin)
 
 // fallback to origin on invalid routes
 // adresses Issue #23
-app.use((_, res) => {
+app.get('/*splat', (_, res) => {
     console.log('Fallback route triggered')
     const path = join(__dirname, '../frontend/dist/index.html')
     res.sendFile(path)
