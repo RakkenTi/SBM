@@ -41,7 +41,7 @@ setServers(['1.1.1.1', '8.8.8.8'])
 
 const PORT = process.env.PORT
 const app = express()
-const originURL = process.env.FRONTEND_URL || shared_config.localURL
+const originURL = process.env.FRONTEND_URL || shared_config.localClientURL
 
 // Middleware
 app.use(

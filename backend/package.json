@@ -8,7 +8,7 @@
         "build": "tsc",
         "start": "node dist/backend/server.js",
         "serve": "npm run clean && npm run build && npm run start",
-        "serve_dev": "tsx watch --watch . server.ts"
+        "serve_dev": "tsx watch --include \".\" --include \"../shared/**/*\" server.ts"
     },
     "keywords": [],
     "author": "",
