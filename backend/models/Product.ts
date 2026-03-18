@@ -26,7 +26,7 @@ const ProductSchema = new Schema({
 
     //PBL VARS
     PBLItems: Array,
-    SBLItems: Array,
+    Sprints: Array,
 })
 
 export type IProduct = InferSchemaType<typeof ProductSchema>
