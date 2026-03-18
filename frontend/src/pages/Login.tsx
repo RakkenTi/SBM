@@ -24,7 +24,6 @@ export const updateProductList = async () => {
             const data = await response.json()
             const products = data.products
             const currentAssignedProducts = []
-            console.log('Data:', data)
             for (let product of products) {
                 const assignedUsers: Array<String> = product.productUsers || []
                 if (assignedUsers.includes(clientData.userID)) {
@@ -73,9 +72,11 @@ const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
             const firstName = result.firstName
             const lastName = result.lastName
             const userID = result.userID
+            const userName = result.userName
             setClientData('loggedIn', true)
             setClientData('firstName', firstName)
             setClientData('lastName', lastName)
+            setClientData('userName', userName)
             setClientData('userID', userID)
         } else {
             console.log('Failed to login:', result.message)
@@ -86,6 +87,7 @@ const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     }
 
     await updateProductList()
+    console.log('Logged in with data:', clientData)
 }
 
 const LoginPage = () => {

@@ -4,28 +4,29 @@ const router = express.Router()
 
 router.get('/session', async (req, res) => {
     try {
-        const sessionId = req.cookies.session_id // Requires 'cookie-parser' middleware
+        const sessionID = req.cookies.session_id // Requires 'cookie-parser' middleware
 
         console.log('Received request to retrieve session data')
-        console.log('Session ID:', sessionId)
+        console.log('Session ID:', sessionID)
 
-        if (!sessionId) {
+        if (!sessionID) {
             console.log('Session ID invalid!')
             return res.status(401).json({ loggedIn: false })
         }
 
-        const user = await UserModel.findById(sessionId)
+        const user = await UserModel.findById(sessionID)
         if (!user) {
             console.log('No user found in db!')
             return res.status(404).json({ loggedIn: false })
         }
 
-        const { firstName, lastName, userID, products } = user
+        const { firstName, lastName, userID: userName, products } = user
         console.log('Retrieved user data.')
         res.status(200).json({
             firstName,
             lastName,
-            userID,
+            userName,
+            userID: sessionID,
             products,
             loggedIn: true,
         })

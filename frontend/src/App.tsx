@@ -5,7 +5,6 @@ import ProductPage from './pages/Product'
 import RegisterPage from './pages/Register'
 import LoginPage from './pages/Login'
 import { clientData, setClientData } from './globals/client_data'
-import { CLIENT_URL } from './globals/client_config'
 
 function App() {
     const [isLoading, setIsLoading] = createSignal(true)
@@ -23,9 +22,8 @@ function App() {
                     loggedIn: true,
                 })
 
-                console.log('DATA:')
-                console.log(clientData)
                 console.log('Logged in via cookie!')
+                console.log('Client data:', clientData)
             } else {
                 console.log('Request success but failed to log in.')
             }
@@ -66,7 +64,10 @@ function App() {
                     }}
                 >
                     <Route path="/" component={PortalPage} />
-                    <Route path="/product" component={ProductPage} />
+                    <Route
+                        path="/product/:productName"
+                        component={ProductPage}
+                    />
                     <Route path="/register" component={RegisterPage} />
                     <Route path="/login" component={LoginPage} />
                 </Router>

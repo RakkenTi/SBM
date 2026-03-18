@@ -6,9 +6,9 @@ const router = express.Router() // create router for this file
 
 router.post('/login', async (req, res) => {
     try {
-        const { userID, password } = req.body // get userID from front end
+        const { userID: userName, password } = req.body // get userID from front end
 
-        const user = await UserModel.findOne({ userID }) // search db for userID
+        const user = await UserModel.findOne({ userID: userName }) // search db for userID
 
         if (!user || !user.password) {
             return res.status(404).json({ message: 'user not found' }) // not found user
@@ -20,8 +20,10 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Incorrect password' }) // password doesn't match
         }
 
+        const userID = user._id.toString()
+
         // logged in by this point
-        res.cookie('session_id', user._id.toString(), {
+        res.cookie('session_id', userID, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24,
             sameSite: 'lax',
@@ -30,7 +32,13 @@ router.post('/login', async (req, res) => {
         })
 
         const { firstName, lastName, products } = user //get user name
-        res.status(200).json({ firstName, lastName, userID, products }) // success
+        res.status(200).json({
+            firstName,
+            lastName,
+            userName,
+            userID,
+            products,
+        }) // success
     } catch (error) {
         res.status(500).json({ message: 'Login failed', error })
     }

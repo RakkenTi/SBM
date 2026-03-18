@@ -6,14 +6,16 @@ export interface ProductDescriptor {
 }
 
 interface ClientGlobals {
-    userID: string
+    userName: string
     firstName: string
+    userID: string
     lastName: string
     loggedIn: boolean
     assignedProducts: Array<ProductDescriptor>
 }
 
 export const [clientData, setClientData] = createStore<ClientGlobals>({
+    userName: '',
     userID: '',
     firstName: '',
     lastName: '',

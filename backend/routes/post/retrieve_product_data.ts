@@ -1,5 +1,5 @@
 import express from 'express'
-import { Product, ProductModel } from '../../models/Product'
+import { ProductModel } from '../../models/Product'
 const router = express.Router()
 
 router.post('/get_user_product', async (req, res) => {
@@ -21,7 +21,7 @@ router.post('/get_user_product', async (req, res) => {
         //If product does not exist return server error
         if (!product) {
             return res
-                .status(500)
+                .status(404) // Still counts as client error if the product does not exist, as they gave an invalid name.
                 .json({ error: 'Missing userID or productName' })
         }
 

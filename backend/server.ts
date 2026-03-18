@@ -21,6 +21,7 @@ import startMognooseHealthObserver from './mongoose/health_observer'
 import applyScrumRules from './mongoose/scrum_rules'
 import { setServers } from 'node:dns/promises'
 import { config } from 'dotenv'
+import ProductRoute from './routes/get/product'
 import { join } from 'node:path'
 
 config()
@@ -59,6 +60,15 @@ const path = join(folderPath, 'index.html')
 app.use(express.json())
 app.use(cookieParser())
 
+app.use(getServerStatus)
+app.use(getDatabaseStatus)
+app.use(getAllUsers)
+app.use(getAllItems)
+app.use(getAllProducts)
+app.use(getSession)
+
+// API
+app.use('/api', ProductRoute)
 app.use('/api', getServerStatus)
 app.use('/api', getDatabaseStatus)
 app.use('/api', getAllUsers)

@@ -108,17 +108,19 @@ const viewProductsContent = (
         <h2 class="text-center text-2xl font-bold">Product List</h2>
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
             <For each={clientData.assignedProducts}>
-                {(product) => (
-                    <a
-                        href="/product"
-                        class="shado-sm flex w-full flex-col gap-4 rounded-xl border-4 border-gray-100 bg-gray-50 p-4 transition-all hover:-translate-y-1 hover:shadow-md active:scale-95 md:p-6"
-                    >
-                        <h2 class="text-xl font-bold">{product.name}</h2>
-                        <h3 class="line-clamp-4 text-lg font-semibold text-gray-400">
-                            {product.description}
-                        </h3>
-                    </a>
-                )}
+                {(product) => {
+                    return (
+                        <a
+                            href={`/product/${product.name}`}
+                            class="shado-sm flex w-full flex-col gap-4 rounded-xl border-4 border-gray-100 bg-gray-50 p-4 transition-all hover:-translate-y-1 hover:shadow-md active:scale-95 md:p-6"
+                        >
+                            <h2 class="text-xl font-bold">{product.name}</h2>
+                            <h3 class="line-clamp-4 text-lg font-semibold text-gray-400">
+                                {product.description}
+                            </h3>
+                        </a>
+                    )
+                }}
             </For>
         </div>
     </div>
@@ -143,14 +145,12 @@ const AcceptCreateProduct = async () => {
         console.log('Sending to server')
         const response = await fetch('/api/create_product', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 productData: data,
-                userData: {
-                    productOwner: clientData.userID,
-                },
             }),
         })
 
