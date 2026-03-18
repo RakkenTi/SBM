@@ -5,6 +5,9 @@
         "jsx": "preserve",
         "jsxImportSource": "solid-js",
         "types": ["vite/client"],
-        "lib": ["ESNext", "DOM"]
+        "lib": ["ESNext", "DOM"],
+        "paths": {
+            "@shared/*": ["../shared/*"]
+        }
     }
 }

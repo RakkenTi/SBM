@@ -1,4 +1,4 @@
-import { createSignal, For, Setter } from 'solid-js'
+import { Component, createSignal, For, Setter } from 'solid-js'
 import BaseLine from '../components/base_line'
 import Select from '../components/select'
 import SubHeader from '../components/subheader'
@@ -9,6 +9,7 @@ import ProductBacklogCard, {
 import Line from '../components/line'
 import CreateBacklogEntryModal from '../components/create_backlog_entry_modal'
 import ModalContainer from '../components/modal_container'
+import { ProductPageSubpage } from '../globals/client_data'
 
 const [statusFilter, setStatusFilter] = createSignal<
     'ANY' | 'DO' | 'PROGRESS' | 'DONE'
@@ -39,7 +40,7 @@ for (let i = 0; i < 10; i++) {
     })
 }
 
-const ProductBacklog = () => (
+const ProductBacklog: Component<ProductPageSubpage> = () => (
     <div class="z-0 flex min-h-screen flex-col">
         <ModalContainer
             state={modalState}

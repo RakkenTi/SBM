@@ -1,6 +1,10 @@
 import express from 'express'
 import { ProductModel } from '../../models/Product'
 import { UserModel } from '../../models/User'
+import {
+    assignedSprints,
+    userLevels as userLevels,
+} from '../../../shared/types'
 const router = express.Router()
 
 router.post('/create_product', async (req, res) => {
@@ -33,9 +37,29 @@ router.post('/create_product', async (req, res) => {
             console.log('User is authorized and authenticated..')
         }
 
-        const userLevelsMap = new Map()
+        const userData = await UserModel.findById(userID)
 
-        userLevelsMap.set(userID, 'ProductOwner')
+        if (!userData) {
+            console.log('No user data!')
+            console.log(userData)
+            return res.status(500).json({
+                message: 'Could not find user.',
+            })
+        }
+
+        if (!userData.userName) {
+            console.log('No username!')
+            console.log(userData)
+            return res.status(500).json({
+                message: 'User data exists but username is blank.',
+            })
+        }
+
+        const userLevels: userLevels = {
+            [userData.userName as string]: 'Product Owner',
+        }
+
+        const assignedSprints: assignedSprints = {}
 
         // create new Product object
         // "||" means that if not defined set default to...
@@ -43,8 +67,8 @@ router.post('/create_product', async (req, res) => {
             productName: productData.name,
             productDescription: productData.description,
             productUsers: [userID],
-            userLevels: userLevelsMap,
-            assignedSprints: {},
+            userLevels: userLevels,
+            assignedSprints: assignedSprints,
             sprintComplete: 0,
             sprintLeft: 0,
             estimatedTime: 0,

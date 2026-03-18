@@ -5,16 +5,16 @@ const ProductSchema = new Schema({
     productDescription: String,
     productUsers: [String],
 
-    // Key = user ID, Value = role ("Developer" or "ProductOwner")
+    // Key = user NAME, Value = role ("Developer" or "ProductOwner")
     userLevels: {
-        type: Map<String, String>,
-        of: String,
+        type: Object,
+        default: {},
     },
 
     // Key = user ID, Value = sprint identifier
     assignedSprints: {
-        type: Map<String, String>,
-        of: String,
+        type: Object,
+        default: {},
     },
 
     sprintComplete: Number,
@@ -29,5 +29,5 @@ const ProductSchema = new Schema({
     SBLItems: Array,
 })
 
-export type Product = InferSchemaType<typeof ProductSchema>
-export const ProductModel = model<Product>('Product', ProductSchema)
+export type IProduct = InferSchemaType<typeof ProductSchema>
+export const ProductModel = model<IProduct>('Product', ProductSchema)

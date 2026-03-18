@@ -1,8 +1,13 @@
+import { ProductSchemaType } from '@shared/types'
 import { createStore } from 'solid-js/store'
 
 export interface ProductDescriptor {
     name: string
     description: string
+}
+
+export interface ProductPageSubpage {
+    data: ProductSchemaType | undefined
 }
 
 interface ClientGlobals {

@@ -11,7 +11,6 @@ import {
     USER_ID_REGEX,
 } from '../../../shared/shared_config'
 import InputBox from '../components/inputbox'
-import { CLIENT_URL } from '../globals/client_config'
 
 const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     event,
@@ -22,7 +21,7 @@ const handleRegister: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     const registerData = {
         firstName: formData.get('FirstName'),
         lastName: formData.get('LastName'),
-        userID: formData.get('UserID'),
+        userName: formData.get('UserName'),
         password: formData.get('Password'),
     }
 
@@ -78,7 +77,7 @@ const RegisterPage = () => (
             />
             <InputBox
                 required
-                name="UserID"
+                name="UserName"
                 type="text"
                 label="ID"
                 placeholder="JD2006"

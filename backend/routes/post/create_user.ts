@@ -6,9 +6,9 @@ const router = express.Router()
 router.post('/create_user', async (req, res) => {
     try {
         // get user data sent from the frontend
-        const { firstName, lastName, userID, password } = req.body
+        const { firstName, lastName, userName, password } = req.body
 
-        const existingUser = await UserModel.findOne({ userID }) //check if userID exists
+        const existingUser = await UserModel.findOne({ userName }) //check if userName exists
 
         if (existingUser) {
             return res
@@ -22,14 +22,14 @@ router.post('/create_user', async (req, res) => {
             'Received request to create user:',
             firstName,
             lastName,
-            userID,
+            userName,
         ) // for debugging
 
         // create a new user object using the schema
         const user = new UserModel({
             firstName,
             lastName,
-            userID,
+            userName,
             password: hashedPassword,
             products: [],
         })

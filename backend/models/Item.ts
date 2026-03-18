@@ -20,5 +20,5 @@ const ItemSchema = new Schema({
     isLocked: { type: Boolean, default: false },
 })
 
-export type Item = InferSchemaType<typeof ItemSchema>
-export const ItemModel = model<Item>('Item', ItemSchema)
+export type IItem = InferSchemaType<typeof ItemSchema>
+export const ItemModel = model<IItem>('Item', ItemSchema)

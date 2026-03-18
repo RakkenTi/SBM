@@ -51,8 +51,8 @@ const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const registerData = {
-        userID: formData.get('UserID'),
+    const loginData = {
+        userName: formData.get('UserName'),
         password: formData.get('Password'),
     }
 
@@ -63,7 +63,7 @@ const handleLogin: JSX.EventHandler<HTMLFormElement, SubmitEvent> = async (
                 'Content-Type': 'application/json',
             },
             credentials: 'include',
-            body: JSON.stringify(registerData),
+            body: JSON.stringify(loginData),
         })
 
         const result = await response.json()
@@ -99,9 +99,9 @@ const LoginPage = () => {
             >
                 <h1 class="text-center text-xl">Login</h1>
                 <InputBox
-                    name="UserID"
+                    name="UserName"
                     type="text"
-                    label="ID"
+                    label="Username"
                     placeholder=""
                     maxLength={MAX_ID_LENGTH}
                     minLength={MIN_ID_LENGTH}

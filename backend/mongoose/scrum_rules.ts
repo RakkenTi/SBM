@@ -1,8 +1,8 @@
 import { CallbackWithoutResultAndOptionalError, model } from 'mongoose'
-import { Item } from '../models/Item'
+import { IItem } from '../models/Item'
 
 const applyScrumRules = () => {
-    model<Item>('Item').schema.pre(
+    model<IItem>('Item').schema.pre(
         'save',
         function (this: any, next: CallbackWithoutResultAndOptionalError) {
             // If the item is new, let it pass.

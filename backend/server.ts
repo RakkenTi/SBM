@@ -60,13 +60,6 @@ const path = join(folderPath, 'index.html')
 app.use(express.json())
 app.use(cookieParser())
 
-app.use(getServerStatus)
-app.use(getDatabaseStatus)
-app.use(getAllUsers)
-app.use(getAllItems)
-app.use(getAllProducts)
-app.use(getSession)
-
 // API
 app.use('/api', ProductRoute)
 app.use('/api', getServerStatus)

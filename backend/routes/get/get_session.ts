@@ -20,7 +20,7 @@ router.get('/session', async (req, res) => {
             return res.status(404).json({ loggedIn: false })
         }
 
-        const { firstName, lastName, userID: userName, products } = user
+        const { firstName, lastName, userName: userName, products } = user
         console.log('Retrieved user data.')
         res.status(200).json({
             firstName,
