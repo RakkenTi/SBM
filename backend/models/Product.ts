@@ -3,7 +3,7 @@ import { InferSchemaType, model, Schema } from 'mongoose'
 const ProductSchema = new Schema({
     productName: String,
     productDescription: String,
-    productUsers: Array<String>,
+    productUsers: [String],
 
     // Key = user ID, Value = role ("Developer" or "ProductOwner")
     userLevels: {

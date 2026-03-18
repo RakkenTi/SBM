@@ -5,7 +5,7 @@ const UserSchema = new Schema({
     lastName: String,
     userID: String,
     password: String,
-    products: Array<String>,
+    products: [String],
 })
 
 export type User = InferSchemaType<typeof UserSchema>

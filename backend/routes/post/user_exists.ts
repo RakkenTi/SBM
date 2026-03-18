@@ -1,6 +1,7 @@
 import express from 'express'
-import { UserModel } from '../../models/User'
 const router = express.Router()
+import { UserModel } from '../../models/User'
+//asdasdsa
 
 router.post('/check_user', async (req, res) => {
     try {
