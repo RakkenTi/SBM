@@ -11,11 +11,8 @@ const ProductSchema = new Schema({
         default: {},
     },
 
-    // Key = user ID, Value = sprint identifier
-    assignedSprints: {
-        type: Object,
-        default: {},
-    },
+    // array of sprint IDs
+    assignedSprints: [String],
 
     sprintComplete: Number,
     sprintLeft: Number,
