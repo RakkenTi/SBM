@@ -9,7 +9,8 @@ const SprintSchema = new Schema({
         enum: ['Inactive', 'Active', 'Completed'],
         default: 'Inactive',
     },
-    budget: Number,
+    totalBudget: Number,
+    currentBudget: Number,
     snapshots: [
         {
             date: Date,
