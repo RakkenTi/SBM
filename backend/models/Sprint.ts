@@ -16,7 +16,7 @@ const SprintSchema = new Schema({
             budget: Number,
         },
     ],
-    team: [{ type: Schema.Types.ObjectId, ref: 'User' }], // holds acc users
+    team: { type: Schema.Types.ObjectId, ref: 'Teams' }, // holds acc teams
     tasks: [{ type: Schema.Types.ObjectId, ref: 'Item' }] // holds acc items
 })
 export type ISprint = InferSchemaType<typeof SprintSchema>

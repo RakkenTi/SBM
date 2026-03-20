@@ -1,5 +1,5 @@
 import { InferSchemaType, model, Schema } from 'mongoose'
-
+// User IDs are based on the objectID of the User. 
 const UserSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
