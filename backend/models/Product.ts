@@ -20,10 +20,11 @@ const ProductSchema = new Schema({
     numberSprints: Number,
     daysRemSprint: Number,
     daysRemProduct: Number,
+    totalBudget: Number,
 
     //PBL VARS
     PBLItems: Array,
-    SBLItems: Array,
+    Sprints: Array,
 })
 
 export type IProduct = InferSchemaType<typeof ProductSchema>
