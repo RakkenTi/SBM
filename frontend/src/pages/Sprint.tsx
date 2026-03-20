@@ -51,19 +51,24 @@ const SprintBacklog: Component<ProductPageSubpage> = () => (
         />
 
         <div class="pt-10"></div>
-        <div class="w-[98%] font-semibold">
-            <div class="float-right flex flex-row items-center justify-center gap-4 text-xl">
-                <h1>View Sprint:</h1>
-                <Select
-                    name="Sprint"
-                    value="Sprint 1"
-                    content={
-                        <>
-                            <option value="Sprint 1">Sprint 1</option>
-                            <option value="Sprint 2">Sprint 2</option>
-                        </>
-                    }
-                ></Select>
+        <div class="flex items-center justify-center">
+            <div class="w-[98%] font-semibold">
+                <div class="float-left flex flex-row items-center justify-center gap-4 text-xl">
+                    <button class="">Create Sprint</button>
+                </div>
+                <div class="float-right flex flex-row items-center justify-center gap-4 text-xl">
+                    <h1>View Sprint:</h1>
+                    <Select
+                        name="Sprint"
+                        value="Sprint 1"
+                        content={
+                            <>
+                                <option value="Sprint 1">Sprint 1</option>
+                                <option value="Sprint 2">Sprint 2</option>
+                            </>
+                        }
+                    ></Select>
+                </div>
             </div>
         </div>
         <BaseLine class="h-1 w-[98%]" />
