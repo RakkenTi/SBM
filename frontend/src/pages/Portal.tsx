@@ -13,15 +13,12 @@ import ModalContainer from '../components/modal_container'
 import { clientData } from '../globals/client_data'
 import { JSX } from 'solid-js/h/jsx-runtime'
 import { updateProductList } from './Login'
+import states from '../globals/states'
 
 const [newProductData, setNewProductData] = createSignal({
     name: '',
     description: '',
 })
-
-const [displayedModal, setDisplayModal] = createSignal<
-    'NONE' | 'CONFIRM' | 'LOADING'
->('NONE')
 
 const getCreateButtonColour = createMemo(() => {
     const data = newProductData()
@@ -38,7 +35,7 @@ const promptConfirmCreateNewProduct: JSX.EventHandler<
 > = (event) => {
     event.preventDefault()
     if (event.currentTarget.checkValidity()) {
-        setDisplayModal('CONFIRM')
+        states.setModal('CONFIRM')
     }
 }
 
@@ -134,13 +131,13 @@ const actions = [
         content: viewProductsContent,
     },
 ]
-const RejectCreateProduct = () => {
-    setDisplayModal('NONE')
+export const RejectCreateProduct = () => {
+    states.setModal('NONE')
 }
 
-const AcceptCreateProduct = async () => {
+export const AcceptCreateProduct = async () => {
     const data = newProductData()
-    setDisplayModal('LOADING')
+    states.setModal('LOADING')
     try {
         console.log('Sending to server')
         const response = await fetch('/api/create_product', {
@@ -156,11 +153,11 @@ const AcceptCreateProduct = async () => {
 
         if (response.ok) {
             console.log('OK')
-            setDisplayModal('NONE')
+            states.setModal('NONE')
         } else {
             console.log('NOT OK')
             alert('Failed to create product. Try again later.')
-            setDisplayModal('NONE')
+            states.setModal('NONE')
         }
 
         await updateProductList()
@@ -179,27 +176,6 @@ function Portal() {
 
     return (
         <div class="min-h-screen bg-slate-100">
-            <ModalContainer
-                state={displayedModal}
-                stateSetter={setDisplayModal}
-                modals={[
-                    {
-                        state_name: 'CONFIRM',
-                        content: (
-                            <ConfirmModal
-                                title="Create Product"
-                                acceptCallback={AcceptCreateProduct}
-                                rejectCallback={RejectCreateProduct}
-                            />
-                        ),
-                    },
-                    {
-                        state_name: 'LOADING',
-                        content: <LoadingModal label="Creating Product" />,
-                    },
-                ]}
-            />
-
             <header class="fixed inset-x-0 top-0 z-10 w-full bg-cyan-500 p-8 pr-12 pl-12 text-center shadow-xl md:flex md:justify-between">
                 <h1 class="text-3xl font-bold tracking-tight text-white md:italic">
                     SBM Portal

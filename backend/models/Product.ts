@@ -3,15 +3,18 @@ import { InferSchemaType, model, Schema } from 'mongoose'
 const ProductSchema = new Schema({
     productName: String,
     productDescription: String,
-    productUsers: [String],
+    productUsers: [String], // Holds userID's, only holds references.
 
     // Key = user NAME, Value = role ("Developer" or "ProductOwner")
+    // Must be object because of a Record user type userLevels
     userLevels: {
         type: Object,
         default: {},
     },
 
-    // array of sprint IDs
+    // See assignedSprints type in shared/types.ts
+    // Key: userName
+    // Value: Sprint ID
     assignedSprints: {
         type: Object,
         default: {},

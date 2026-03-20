@@ -5,6 +5,8 @@ import StatCard from '../components/stat_card'
 import BurndownChart from '../components/burndown_chart'
 import { clientData, ProductPageSubpage } from '../globals/client_data'
 import { ProductSchemaType, userLevels } from '@shared/types'
+import GenericButton from '../components/generic_button'
+import states from '../globals/states'
 
 const [productData, setProductData] = createSignal<ProductSchemaType>()
 
@@ -63,35 +65,17 @@ const Management: Component<ProductPageSubpage> = (props) => {
             <div class="pt-10"></div>
             <SubHeader label={`Management`} class="text-5xl" />
             <Line />
-            <SubHeader label="Burndown Chart" />
-            <Line />
-            <div class="flex flex-col justify-center gap-12 p-4 md:flex-row">
-                <BurndownChart
-                    type="line"
-                    data={[
-                        {
-                            label: 'Sample Label',
-                            data: [12, 152, 161, 41, 42, 50],
-                            borderColor: '#06b6d4',
-                            tension: 0.4,
-                        },
-                        {
-                            label: 'Sample Label 2',
-                            data: [51, 42, 150, 122, 24, 80],
-                            borderColor: '#bb5cf6',
-                            tension: 0.4,
-                        },
-                    ]}
-                    labels={[
-                        'Label 1',
-                        'Label 2',
-                        'Label 3',
-                        'Label 4',
-                        'Label 5',
-                        'Label 6',
-                    ]}
-                />
+            <SubHeader label="Sprints" />
+            <div class="float-left flex flex-row items-center justify-center gap-4 text-xl">
+                <GenericButton
+                    onClick={() => {
+                        states.setModal('CREATE_SPRINT')
+                    }}
+                >
+                    + Create Sprint
+                </GenericButton>
             </div>
+            <Line />
 
             <SubHeader label="Stats" />
             <Line class="bg-orange-400" />

@@ -1,10 +1,11 @@
 import { createEffect, createSignal, onMount, Show } from 'solid-js'
-import PortalPage from './pages/Portal.js'
-import { Route, Router, useLocation, useNavigate } from '@solidjs/router'
+import { Route, Router, useNavigate } from '@solidjs/router'
 import ProductPage from './pages/Product'
 import RegisterPage from './pages/Register'
 import LoginPage from './pages/Login'
+import Portal from './pages/Portal'
 import { clientData, setClientData } from './globals/client_data'
+import { Modals } from './components/modals.jsx'
 
 function App() {
     const [isLoading, setIsLoading] = createSignal(true)
@@ -36,6 +37,7 @@ function App() {
 
     return (
         <div class="font-['Inter']">
+            <Modals />
             <Show
                 when={!isLoading()}
                 fallback={
@@ -54,7 +56,10 @@ function App() {
                                     'Logged out. Switching to login/register page.',
                                 )
                                 navigate('/login', { replace: true })
-                            } else {
+                            } else if (
+                                location.pathname.includes('/login') ||
+                                location.pathname.includes('/register')
+                            ) {
                                 console.log('Logged in. Switching to portal.')
                                 navigate('/', { replace: true })
                             }
@@ -63,7 +68,7 @@ function App() {
                         return <>{props.children}</>
                     }}
                 >
-                    <Route path="/" component={PortalPage} />
+                    <Route path="/" component={Portal} />
                     <Route
                         path="/product/:productName"
                         component={ProductPage}

@@ -10,6 +10,7 @@ import Line from '../components/line'
 import CreateBacklogEntryModal from '../components/create_backlog_entry_modal'
 import ModalContainer from '../components/modal_container'
 import { ProductPageSubpage } from '../globals/client_data'
+import states from '../globals/states'
 
 const [statusFilter, setStatusFilter] = createSignal<
     'ANY' | 'DO' | 'PROGRESS' | 'DONE'
@@ -24,8 +25,6 @@ const [riskFilter, setRiskFilter] = createSignal<
 >('ANY')
 
 const [teamFilter, setTeamFilter] = createSignal<'ANY' | string>('ANY')
-
-const [modalState, setModalState] = createSignal<'NONE' | 'CBE'>('NONE')
 
 const productBacklogEntries: Array<ProductBacklogCardProps> = []
 
@@ -42,17 +41,6 @@ for (let i = 0; i < 10; i++) {
 
 const ProductBacklog: Component<ProductPageSubpage> = () => (
     <div class="z-0 flex min-h-screen flex-col">
-        <ModalContainer
-            state={modalState}
-            stateSetter={setModalState}
-            modals={[
-                {
-                    state_name: 'CBE',
-                    content: <CreateBacklogEntryModal />,
-                },
-            ]}
-        />
-
         <div class="pt-10"></div>
         <BaseLine class="h-1 w-[98%]" />
         <div class="flex items-center gap-6 pt-4 pl-40 font-medium text-slate-600">
@@ -169,7 +157,7 @@ const ProductBacklog: Component<ProductPageSubpage> = () => (
         >
             <button
                 onclick={() => {
-                    setModalState('CBE')
+                    states.setModal('CREATE_BACKLOG_ENTRY')
                 }}
                 class="z-100 rounded-lg border-2 border-gray-300 bg-blue-500 p-4 text-center font-semibold tracking-tight text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:cursor-pointer hover:shadow-xl active:scale-95 active:duration-50"
             >

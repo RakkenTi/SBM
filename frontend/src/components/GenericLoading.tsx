@@ -1,5 +1,5 @@
 import { Component } from 'solid-js'
-import LoadingModal from '../components/loading_modal'
+import LoadingModal from './loading_modal'
 
 const GenericLoading: Component = () => {
     return (

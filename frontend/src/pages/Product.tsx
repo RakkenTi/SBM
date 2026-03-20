@@ -1,11 +1,4 @@
-import {
-    createSignal,
-    createMemo,
-    For,
-    Show,
-    createResource,
-    createEffect,
-} from 'solid-js'
+import { createSignal, For, Show, createResource } from 'solid-js'
 import ProfilePicture from '../components/profile_picture'
 import NavButton from '../components/nav_button'
 import Dashboard from './Dashboard'
@@ -13,7 +6,7 @@ import ProductBacklog from './ProductBacklog'
 import SprintBacklog from './Sprint'
 import { useParams } from '@solidjs/router'
 import { ProductSchemaType } from '@shared/types'
-import GenericLoading from './GenericLoading'
+import GenericLoading from '../components/GenericLoading'
 import Management from './Manage'
 
 const navbar_buttons = [
