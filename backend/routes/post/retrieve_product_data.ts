@@ -22,11 +22,12 @@ router.post('/get_user_product', async (req, res) => {
         if (!product) {
             return res
                 .status(404) // Still counts as client error if the product does not exist, as they gave an invalid name.
-                .json({ error: 'Missing userID or productName' })
+                .json({ error: 'Product not found' }) // ← fixed error message
         }
 
         const productUsers = product.productUsers
-        if (!productUsers.includes(userID)) {
+        // Convert ObjectIds to strings before comparing
+        if (!productUsers.some(userId => userId.toString() === userID)) {
             return res
                 .status(403)
                 .json({ error: 'UserID is not in this product' })
@@ -36,7 +37,8 @@ router.post('/get_user_product', async (req, res) => {
 
         //catch general server error if try block does not run
     } catch (error) {
-        res.status(500).json({ message: 'server error', error })
+        console.error(error) // log for debugging
+        res.status(500).json({ message: 'server error' }) // don't expose raw error
     }
 })
 module.exports = router

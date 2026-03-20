@@ -3,17 +3,19 @@ import { InferSchemaType, model, Schema } from 'mongoose'
 const ProductSchema = new Schema({
     productName: String,
     productDescription: String,
-    productUsers: [String],
+    productUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }], // now holds acc users
 
     // Key = user NAME, Value = role ("Developer" or "ProductOwner")
     userLevels: {
-        type: Object,
+        type: Map,
+        of: String,
         default: {},
     },
 
     // array of sprint IDs
     assignedSprints: {
-        type: Object,
+        type: Map,
+        of: Schema.Types.ObjectId, // holds ids
         default: {},
     },
 
@@ -25,13 +27,14 @@ const ProductSchema = new Schema({
     daysRemProduct: Number,
     totalBudget: Number,
     teams: {
-        type: Object,
+        type: Map,
+        of: [Schema.Types.ObjectId], // holds ids
         default: {},
     },
 
     //PBL VARS
-    PBLItems: Array,
-    Sprints: Array,
+    PBLItems: [{ type: Schema.Types.ObjectId, ref: 'Item' }], // holds acc items
+    Sprints: [{ type: Schema.Types.ObjectId, ref: 'Sprint' }], //hold acc sprints
 })
 
 export type IProduct = InferSchemaType<typeof ProductSchema>

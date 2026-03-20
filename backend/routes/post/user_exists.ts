@@ -12,7 +12,7 @@ router.post('/check_user', async (req, res) => {
         }
 
         // search for user in MongoDB
-        const userFind = await UserModel.exists({ userID })
+        const userFind = await UserModel.exists({ _id: userID })
 
         // return true if id found, false if not
         res.status(200).json(!!userFind)

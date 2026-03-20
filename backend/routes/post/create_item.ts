@@ -1,10 +1,11 @@
 import express from 'express'
 import { ItemModel } from '../../models/Item'
+import { ProductModel } from '../../models/Product' // import Product model
+
 const router = express.Router()
 
 router.post('/create_item', async (req, res) => {
     try {
-        // get item data from frontend
         const {
             title,
             description,
@@ -15,27 +16,46 @@ router.post('/create_item', async (req, res) => {
             risk,
             teamLabel,
             isLocked,
+            productId, // new field: the product this item belongs to
         } = req.body
 
-        // create new Item object
-        // "||" means that if not defined set default to...
+        // Validate required fields
+        if (!title) {
+            return res.status(400).json({ message: 'title is required' })
+        }
+        if (!productId) {
+            return res.status(400).json({ message: 'productId is required' })
+        }
+
+        // Check if product exists
+        const product = await ProductModel.findById(productId)
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' })
+        }
+
+        // Create item
         const item = new ItemModel({
             title,
-            description: description || '',
-            type: type || 'Task',
-            priority: priority || 'Medium',
-            status: status || 'To Do',
-            effort: effort || 0,
-            risk: risk || 'Low',
-            teamLabel: teamLabel || '',
-            isLocked: isLocked || false,
+            description,
+            type,
+            priority,
+            status,
+            effort,
+            risk,
+            teamLabel,
+            isLocked,
         })
 
         await item.save()
 
-        res.status(201).json({ message: 'Item created', item })
+        // Associate item with product
+        product.PBLItems.push(item._id)
+        await product.save()
+
+        res.status(201).json({ message: 'Item created and added to product', item })
     } catch (error) {
-        res.status(500).json({ message: 'Failed to create item', error })
+        console.error(error) // log for debugging
+        res.status(500).json({ message: 'Failed to create item' })
     }
 })
 

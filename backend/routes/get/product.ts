@@ -32,7 +32,8 @@ router.get('/product/:productName', async (req, res) => {
 
         const productUsers = product.productUsers
 
-        if (!productUsers.includes(userID)) {
+        const isAuthorized = productUsers.some(userId => userId.toString() === userID)
+        if (!isAuthorized) {
             console.log('User is not authorized. (Missing from productUsers)')
             return res.status(403).json({
                 error: 'No authorization to view product. (Missing from user list.)',
@@ -46,8 +47,7 @@ router.get('/product/:productName', async (req, res) => {
     } catch (error) {
         console.log('Cannot GET product: ', error)
         res.status(500).json({
-            message: 'Server encountered error.',
-            error,
+            message: 'Server encountered error.'
         })
     }
 })
