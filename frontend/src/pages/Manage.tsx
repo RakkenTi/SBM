@@ -38,7 +38,6 @@ const StatCards = [
         value={`${productData()?.PBLItems?.length}`}
         value_classes="text-orange-500"
     />,
-
     <StatCard
         header="Days Remaining (Sprint)"
         value={`${productData()?.daysRemSprint} days`}
@@ -51,7 +50,7 @@ const StatCards = [
     />,
 ]
 
-const Dashboard: Component<ProductPageSubpage> = (props) => {
+const Management: Component<ProductPageSubpage> = (props) => {
     setProductData(props.data)
 
     const userLevels = createMemo(() => {
@@ -62,23 +61,8 @@ const Dashboard: Component<ProductPageSubpage> = (props) => {
     return (
         <div class="z-0 flex min-h-screen flex-col">
             <div class="pt-10"></div>
-            <SubHeader
-                label={`Welcome, ${clientData.userName}`}
-                class="text-5xl"
-            />
+            <SubHeader label={`Management`} class="text-5xl" />
             <Line />
-            <div class="flex w-full flex-col justify-center gap-4 p-4 pt-10 text-center md:flex-row md:gap-8">
-                <StatCard
-                    header="Level"
-                    value={`${props.data?.userLevels[clientData.userName]}`}
-                    value_classes="text-slate-600"
-                />
-                <StatCard
-                    header="Assigned Sprint"
-                    value={`${props.data?.assignedSprints?.[clientData.userID] || 'None'}`}
-                />
-            </div>
-
             <SubHeader label="Burndown Chart" />
             <Line />
             <div class="flex flex-col justify-center gap-12 p-4 md:flex-row">
@@ -146,4 +130,4 @@ const Dashboard: Component<ProductPageSubpage> = (props) => {
     )
 }
 
-export default Dashboard
+export default Management

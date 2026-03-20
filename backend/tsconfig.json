@@ -8,13 +8,8 @@
         "skipLibCheck": true,
         "module": "nodenext",
         "lib": ["ESNext", "DOM"],
+        "strict": true
     },
-    "include": [
-        "./**/*",
-        "../shared/**/*"
-    ],
-    "exclude": [
-        "../frontend/**/*",
-        "node_modules"
-    ]
+    "include": ["./**/*", "../shared/**/*"],
+    "exclude": ["../frontend/**/*", "node_modules"]
 }

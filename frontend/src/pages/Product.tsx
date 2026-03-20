@@ -14,11 +14,13 @@ import SprintBacklog from './Sprint'
 import { useParams } from '@solidjs/router'
 import { ProductSchemaType } from '@shared/types'
 import GenericLoading from './GenericLoading'
+import Management from './Manage'
 
 const navbar_buttons = [
     { name: 'Dashboard', icon: '' },
     { name: 'Product Backlog', icon: '' },
     { name: 'Sprint Backlog', icon: '' },
+    { name: 'Manage', icon: '' },
 ]
 
 const [tab, setTab] = createSignal(navbar_buttons[0].name)
@@ -84,6 +86,10 @@ function IProduct() {
 
                     <Show when={tab() === 'Sprint Backlog'}>
                         <SprintBacklog data={productData()} />
+                    </Show>
+
+                    <Show when={tab() === 'Manage'}>
+                        <Management data={productData()} />
                     </Show>
                 </section>
             )}

@@ -12,7 +12,10 @@ const ProductSchema = new Schema({
     },
 
     // array of sprint IDs
-    assignedSprints: [String],
+    assignedSprints: {
+        type: Object,
+        default: {},
+    },
 
     sprintComplete: Number,
     sprintLeft: Number,
@@ -21,6 +24,10 @@ const ProductSchema = new Schema({
     daysRemSprint: Number,
     daysRemProduct: Number,
     totalBudget: Number,
+    teams: {
+        type: Object,
+        default: {},
+    },
 
     //PBL VARS
     PBLItems: Array,

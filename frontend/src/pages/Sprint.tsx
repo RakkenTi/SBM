@@ -7,6 +7,7 @@ import ProductBacklogCard, {
 import CreateBacklogEntryModal from '../components/create_backlog_entry_modal'
 import ModalContainer from '../components/modal_container'
 import { ProductPageSubpage } from '../globals/client_data'
+import GenericButton from '../components/generic_button'
 
 const [statusFilter, setStatusFilter] = createSignal<
     'ANY' | 'DO' | 'PROGRESS' | 'DONE'
@@ -22,7 +23,7 @@ const [riskFilter, setRiskFilter] = createSignal<
 
 const [teamFilter, setTeamFilter] = createSignal<'ANY' | string>('ANY')
 
-const [modalState, setModalState] = createSignal<'NONE' | 'CBE'>('NONE')
+const [modalState, setModalState] = createSignal<'NONE' | 'CBE' | 'CS'>('NONE')
 
 const productBacklogEntries: Array<ProductBacklogCardProps> = []
 
@@ -54,7 +55,13 @@ const SprintBacklog: Component<ProductPageSubpage> = () => (
         <div class="flex items-center justify-center">
             <div class="w-[98%] font-semibold">
                 <div class="float-left flex flex-row items-center justify-center gap-4 text-xl">
-                    <button class="">Create Sprint</button>
+                    <GenericButton
+                        onClick={() => {
+                            setModalState('CS')
+                        }}
+                    >
+                        + Create Sprint
+                    </GenericButton>
                 </div>
                 <div class="float-right flex flex-row items-center justify-center gap-4 text-xl">
                     <h1>View Sprint:</h1>

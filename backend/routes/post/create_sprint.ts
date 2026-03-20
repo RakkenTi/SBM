@@ -14,7 +14,13 @@ router.post('/create_sprint', async (req, res) => {
             return res.status(400).json({ message: 'Invalid user.' })
         }
 
-        if (!sprintData?.goal || !sprintData?.productID) {
+        if (!sprintData) {
+            return res.status(400).json({
+                message: 'No sprint data.',
+            })
+        }
+
+        if (!sprintData.goal || !sprintData.productID) {
             return res.status(400).json({ message: 'Missing sprint data.' })
         }
 
@@ -30,12 +36,12 @@ router.post('/create_sprint', async (req, res) => {
             return res.status(404).json({ message: 'Product not found.' })
         }
 
-        // check role 
+        // check role
         const role = product.userLevels?.[user.userName as string]
 
         if (role !== 'Product Owner') {
             return res.status(403).json({
-                message: 'Only Product Owners can create sprints'
+                message: 'Only Product Owners can create sprints',
             })
         }
 
@@ -63,7 +69,6 @@ router.post('/create_sprint', async (req, res) => {
             message: 'Sprint created',
             sprint,
         })
-
     } catch (error) {
         console.log(error)
         return res.status(500).json({

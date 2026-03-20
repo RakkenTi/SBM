@@ -16,6 +16,7 @@ const SprintSchema = new Schema({
             budget: Number,
         },
     ],
+    team: [String], // Team IDs!
     tasks: [String], // Only store task references.
 })
 export type ISprint = InferSchemaType<typeof SprintSchema>
