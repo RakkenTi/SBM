@@ -30,6 +30,10 @@ router.post('/create_sprint', async (req, res) => {
             return res.status(404).json({ message: 'User not found.' })
         }
 
+        if (!user.userName) {
+            return res.status(400).json({ message: 'User has no username set.' })
+        }
+
         // get product
         const product = await ProductModel.findById(sprintData.productID)
         if (!product) {
@@ -37,8 +41,7 @@ router.post('/create_sprint', async (req, res) => {
         }
 
         // check role
-        const role = product.userLevels?.[user.userName as string]
-
+        const role = product.userLevels?.get(user.userName)
         if (role !== 'Product Owner') {
             return res.status(403).json({
                 message: 'Only Product Owners can create sprints',
@@ -60,9 +63,7 @@ router.post('/create_sprint', async (req, res) => {
 
         // link sprint to product
         await ProductModel.findByIdAndUpdate(sprintData.productID, {
-            $push: {
-                assignedSprints: sprint._id,
-            },
+            $push: { Sprints: sprint._id },
         })
 
         return res.status(201).json({

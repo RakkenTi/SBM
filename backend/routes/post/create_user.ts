@@ -8,6 +8,12 @@ router.post('/create_user', async (req, res) => {
         // get user data sent from the frontend
         const { firstName, lastName, userName, password } = req.body
 
+        if (!firstName || !lastName || !userName || !password) {
+            return res.status(400).json({ 
+                message: 'Missing required fields: firstName, lastName, userName, password are all required.' 
+            })
+        }
+
         const existingUser = await UserModel.findOne({ userName }) //check if userName exists
 
         if (existingUser) {
@@ -37,7 +43,12 @@ router.post('/create_user', async (req, res) => {
         // save the user to MongoDB
         await user.save()
 
-        res.status(201).json({ message: 'Success' })
+        res.status(201).json({ 
+            message: 'User created successfully',
+            userId: user._id,
+            userName: user.userName
+        })
+        
     } catch (error) {
         res.status(500).json({ message: 'Failed to create user', error })
     }
