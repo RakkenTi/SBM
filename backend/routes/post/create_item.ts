@@ -9,14 +9,10 @@ router.post('/create_item', async (req, res) => {
         const {
             title,
             description,
-            type,
             priority,
-            status,
-            effort,
             risk,
+            status,
             teamLabel,
-            isLocked,
-            productId, // new field: the product this item belongs to
         } = req.body
 
         // Validate required fields
@@ -37,13 +33,10 @@ router.post('/create_item', async (req, res) => {
         const item = new ItemModel({
             title,
             description,
-            type,
             priority,
-            status,
-            effort,
             risk,
+            status,
             teamLabel,
-            isLocked,
         })
 
         await item.save()
