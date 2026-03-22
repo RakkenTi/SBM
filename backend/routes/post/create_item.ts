@@ -13,6 +13,7 @@ router.post('/create_item', async (req, res) => {
             risk,
             status,
             teamLabel,
+            productId,
         } = req.body
 
         // Validate required fields
