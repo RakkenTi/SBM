@@ -2,16 +2,23 @@
 import bcrypt from 'bcrypt'
 import express from 'express'
 import { UserModel } from '../../models/User'
+
 const router = express.Router() // create router for this file
 
 router.post('/login', async (req, res) => {
     try {
         const { userName, password } = req.body // get userID from front end
+
+        if (!userName || !password) {
+            return res.status(400).json({ message: 'Username and password are required' })
+        }
+
         console.log('Cient attempting to login...')
         console.log(`Username: ${userName}`)
+
         const user = await UserModel.findOne({ userName }) // search db for userID
 
-        if (!user || !user.password) {
+        if (!user) {
             console.log('No user found!')
             return res.status(404).json({ message: 'user not found' }) // not found user
         }

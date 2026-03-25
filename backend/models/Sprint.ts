@@ -16,8 +16,8 @@ const SprintSchema = new Schema({
             budget: Number,
         },
     ],
-    team: [String], // Team IDs!
-    tasks: [String], // Only store task references.
+    team: { type: Schema.Types.ObjectId, ref: 'Teams' }, // holds acc teams
+    tasks: [{ type: Schema.Types.ObjectId, ref: 'Item' }] // holds acc items
 })
 export type ISprint = InferSchemaType<typeof SprintSchema>
 export const SprintModel = model<ISprint>('Sprint', SprintSchema)
