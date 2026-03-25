@@ -15,7 +15,7 @@
         "start:backend": "cd backend && npm run start",
         "dev:frontend": "cd frontend && npm run dev",
         "dev:backend": "cd backend && npm run serve_dev",
-        "dev:full": "npm install && concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+        "dev:full": "npm install && concurrently -n Frontend,Backend -c blue,magenta \"npm run dev:frontend\" \"npm run dev:backend\"",
         "dev": "npm run dev:full"
     },
     "workspaces": [
