@@ -31,25 +31,34 @@ interface inputboxProps {
     placeholder: string
     type: ValidInputType
     options: Array<string>
+    value?: any
+    onInput?: (...args: any) => any
 }
 
 const OptionBox: Component<inputboxProps> = (props) => (
-    <InputFrame content={(<>
-        <span class="pr-2">{props.label}</span>
-        <Select
-            name="d"
-            value=""
-            content={
-                (<For each={props.options}>
-                    {
-                        (item) => 
-                            (<option>{item}</option>)
-                        
+    <InputFrame
+        content={
+            <>
+                <span class="pr-2">{props.label}</span>
+                <Select
+                    name="d"
+                    value={props.value}
+                    onChange={(...args) => {
+                        if (props.onInput) {
+                            props.onInput(...args)
+                        } else {
+                            console.log('No input detected!')
+                        }
+                    }}
+                    content={
+                        <For each={props.options}>
+                            {(item) => <option>{item}</option>}
+                        </For>
                     }
-                </For>)
-            }
-        ></Select>
-    </>)}/>
+                ></Select>
+            </>
+        }
+    />
 )
 
 export default OptionBox

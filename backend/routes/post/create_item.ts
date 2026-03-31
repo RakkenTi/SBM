@@ -6,26 +6,28 @@ const router = express.Router()
 
 router.post('/create_item', async (req, res) => {
     try {
+        console.log('Received create item request.')
         const {
             title,
             description,
             priority,
             risk,
+            effort,
             status,
             teamLabel,
-            productId,
+            productName,
         } = req.body
 
         // Validate required fields
         if (!title) {
             return res.status(400).json({ message: 'title is required' })
         }
-        if (!productId) {
-            return res.status(400).json({ message: 'productId is required' })
+        if (!productName) {
+            return res.status(400).json({ message: 'productName is required' })
         }
 
         // Check if product exists
-        const product = await ProductModel.findById(productId)
+        const product = await ProductModel.findOne({ productName })
         if (!product) {
             return res.status(404).json({ message: 'Product not found' })
         }
@@ -38,6 +40,7 @@ router.post('/create_item', async (req, res) => {
             risk,
             status,
             teamLabel,
+            effort,
         })
 
         await item.save()
@@ -46,7 +49,11 @@ router.post('/create_item', async (req, res) => {
         product.PBLItems.push(item._id)
         await product.save()
 
-        res.status(201).json({ message: 'Item created and added to product', item })
+        res.status(201).json({
+            message: 'Item created and added to product',
+            item,
+        })
+        console.log('Created item successfully')
     } catch (error) {
         console.error(error) // log for debugging
         res.status(500).json({ message: 'Failed to create item' })

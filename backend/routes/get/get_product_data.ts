@@ -1,6 +1,6 @@
 import express from 'express'
 import { ProductModel } from '../../models/Product'
-import { UserModel } from '../../models/User' 
+import { UserModel } from '../../models/User'
 
 const router = express.Router()
 
@@ -24,17 +24,20 @@ router.get('/get_product_data', async (req, res) => {
         }
 
         const product = await ProductModel.findOne({ productName })
+            .populate('Sprints')
+            .populate('PBLItems')
+
         if (!product) {
             return res.status(404).json({ message: 'Product not found' })
         }
 
-        if (!product.productUsers.some(id => id.toString() === userID)) {
+        if (!product.productUsers.some((id) => id.toString() === userID)) {
             return res.status(403).json({ message: 'User not in this product' })
         }
 
         res.status(200).json(product)
     } catch (error) {
-        console.error(error) 
+        console.error(error)
         res.status(500).json({ message: 'Failed to get product' })
     }
 })

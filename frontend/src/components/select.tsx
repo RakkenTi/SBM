@@ -1,6 +1,6 @@
-import { Component, JSXElement } from 'solid-js'
+import { Component, ComponentProps, JSXElement } from 'solid-js'
 
-interface SelectProps {
+interface SelectProps extends ComponentProps<'select'> {
     name: string
     value: string
     content: JSXElement
@@ -8,9 +8,8 @@ interface SelectProps {
 
 const Select: Component<SelectProps> = (props) => (
     <select
-        value={props.value}
+        {...props}
         class="rounded-lg bg-slate-200 p-2 text-lg shadow-sm hover:bg-slate-300 hover:shadow-md"
-        name={props.name}
     >
         {props.content}
     </select>

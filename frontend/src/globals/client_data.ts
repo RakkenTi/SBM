@@ -7,7 +7,7 @@ export interface ProductDescriptor {
 }
 
 export interface ProductPageSubpage {
-    data: ProductSchemaType | undefined
+    data: (ProductSchemaType & { _id: string }) | undefined
 }
 
 interface ClientGlobals {

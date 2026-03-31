@@ -31,7 +31,9 @@ router.post('/create_sprint', async (req, res) => {
         }
 
         if (!user.userName) {
-            return res.status(400).json({ message: 'User has no username set.' })
+            return res
+                .status(400)
+                .json({ message: 'User has no username set.' })
         }
 
         // get product
@@ -48,8 +50,11 @@ router.post('/create_sprint', async (req, res) => {
             })
         }
 
+        console.log('Sprint data:', sprintData)
+
         // create sprint
         const sprint = new SprintModel({
+            name: sprintData.name,
             goal: sprintData.goal,
             startDate: sprintData.startDate,
             endDate: sprintData.endDate,
@@ -66,6 +71,7 @@ router.post('/create_sprint', async (req, res) => {
             $push: { Sprints: sprint._id },
         })
 
+        console.log('Successfully created sprint.')
         return res.status(201).json({
             message: 'Sprint created',
             sprint,

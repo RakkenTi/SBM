@@ -6,6 +6,7 @@ export type MODAL_NAMES =
     | 'LOADING'
     | 'CREATE_BACKLOG_ENTRY'
     | 'CREATE_SPRINT'
+    | 'ADD_TO_SPRINT'
 
 const [modal, setModal] = createSignal<MODAL_NAMES>('NONE')
 export default {
