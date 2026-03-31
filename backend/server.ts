@@ -68,9 +68,23 @@ const loadRoutes = async (dir: string) => {
                 const routeUrl = pathToFileURL(fullPath).toString()
                 const routeModule = await import(routeUrl)
 
-                if (routeModule.default) {
-                    app.use('/api', routeModule.default)
+                // FIX: Handle different ways the router might be exported after build
+                let router = routeModule.default || routeModule
+
+                // Sometimes TypeScript builds lead to a double .default nesting
+                if (router.default) {
+                    router = router.default
+                }
+
+                // Only use it if it's a valid Express handler (function)
+                if (typeof router === 'function') {
+                    app.use('/api', router)
                     console.log(`Loaded route: /api from ${entry.name}`)
+                } else {
+                    console.error(
+                        `Failed to load route from ${entry.name}: Export is not a function`,
+                        router,
+                    )
                 }
             } catch (err) {
                 console.error(`Failed to load route from ${entry.name}:`, err)
